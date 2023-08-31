@@ -49,8 +49,8 @@ func listen(port int, app *fiber.App) {
 }
 
 func setupRoutes(app *fiber.App) {
-	app.Get("/api", func(c *fiber.Ctx)error{
-		return c.Status(200).JSON("halo world")
+	app.Get("/", func(c *fiber.Ctx)error{
+		return c.Status(200).JSON("HELO World 🌍")
 	})
-	app.Get("/api/something",routes.GetSomething)
+	app.Get("/cars",routes.GetCars)
 }

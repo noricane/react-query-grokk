@@ -1,7 +1,9 @@
 export type Car = {
-    brand: string
+    id:number
+    manufacturer: string
     model: string
-    year: string
-    image: string
+    price: number
+    img: string
+    description:string
   }
   
