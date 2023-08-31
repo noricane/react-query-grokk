@@ -15,7 +15,7 @@ const CarComponent = (
         <section className='w-full h-32 p-2'>
             <h1 className='font-semibold text-zinc-800 text-2xl'>{model}</h1>
             <h2 className='font-semibold text-zinc-700 text-xl'>{manufacturer}</h2>
-            <h2 className='font-semibold text-zinc-600 '>{`$${price.toLocaleString()}`}</h2>
+            <h2 className='font-semibold text-zinc-600 '>{`$${price.toLocaleString("en-US")}`}</h2>
         </section>
    </article>
   )

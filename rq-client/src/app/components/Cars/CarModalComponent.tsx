@@ -11,8 +11,13 @@ const CarModalComponent = (
         <img draggable={false} className=' object-center w-[inherit] h-[inherit] object-cover' src={img} alt={`An image of a ${manufacturer} ${model}`} />
       </div>
 
-      <h1 className='font-semibold text-zinc-800 text-2xl'>{model}</h1>
-      <h2 className='font-semibold text-zinc-700 text-xl'>{manufacturer}</h2>
+     <div className='flex justify-between items-center'>
+      <div className='flex flex-col'>
+        <h1 className='font-semibold text-zinc-800 text-2xl'>{model}</h1>
+        <h2 className='font-semibold text-zinc-700 text-xl'>{manufacturer}</h2>
+      </div>
+      <h3 className='text-xl font-semibold'>${price.toLocaleString("en-US")}</h3>
+     </div>
 
       <div className='my-2'>
       {description}
