@@ -6,7 +6,7 @@ const CarComponent = (
     {id,manufacturer,model,price,img,description,}:
     {id: number;manufacturer: string;model: string;price: number;img: string;description: string;}) => {
   return (
-   <article className='hover:scale-105 active:scale-100 transition-transform sm:col-span-6 lg:col-span-3 h-96 bg-zinc-50 select-none !cursor-pointer rounded-lg overflow-hidden'>
+   <article className='hover:scale-105 active:scale-100 transition-transform utsm:col-span-full sm:col-span-6 lg:col-span-3 h-96 bg-zinc-50 select-none !cursor-pointer rounded-lg overflow-hidden'>
         <div className='w-full h-64'>
             <img draggable={false} className=' object-center w-[inherit] h-[inherit] object-cover' src={img} alt={`An image of a ${manufacturer} ${model}`} />
             {/* <Image width={720} height={1280} className=' object-fill object-center ' src={img} alt={`An image of a ${manufacturer} ${model}`} /> */}

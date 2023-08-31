@@ -27,7 +27,7 @@ const CarGrid = ({}:{}) => {
   ];
   return (
     <section className="grid grid-cols-12 gap-4 grid-ro bg-zinc-200 row w-full auto-rows-min	 p-4 min-h-screen overflow-scroll">
-        <input type="text" className=" col-span-full h-12 " />
+        <input type="text" className="px-2 col-span-full h-12  rounded-lg outline-zinc-700" />
         {cars.map((e:Car) => (
             <CarComponent key={e.id} {...e}/>
         ))}
