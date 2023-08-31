@@ -26,10 +26,10 @@ const CarGrid = ({}:{}) => {
     },
   ];
   return (
-    <section>
-        {cars.map((e) => (
-            <CarComponent {..e}></CarComponent>
-      ))}
+    <section className="grid grid-cols-12">
+        {cars.map((e:Car) => (
+            <CarComponent key={e.id} {...e}/>
+        ))}
         
     </section>
   )
