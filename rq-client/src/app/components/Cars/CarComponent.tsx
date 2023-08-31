@@ -4,8 +4,8 @@ import Image from 'next/legacy/image';
 import React from 'react'
 
 const CarComponent = (
-    {id,manufacturer,model,price,img,description,onClick}:
-    {id: number;manufacturer: string;model: string;price: number;img: string;description: string;onClick:React.MouseEventHandler<HTMLElement>}) => {
+    {id,manufacturer,model,price,img,description,onClick,wiki}:
+    {id: number;manufacturer: string;model: string;price: number;img: string;description: string;onClick:React.MouseEventHandler<HTMLElement>,wiki:string}) => {
   return (
    <article onClick={onClick} className='hover:scale-105 active:scale-100 transition-transform utsm:col-span-full sm:col-span-6 lg:col-span-3 h-96 bg-zinc-50 select-none !cursor-pointer rounded-lg overflow-hidden'>
         <div className='w-full h-64'>

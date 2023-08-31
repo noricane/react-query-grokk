@@ -5,5 +5,6 @@ export type Car = {
     price: number
     img: string
     description:string
+    wiki:string
   }
   
