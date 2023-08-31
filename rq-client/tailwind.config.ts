@@ -21,6 +21,10 @@ const config: Config = {
 				'utxs': {'max':'479px'},
 				'xs': {'min':'480px'},
 			  },
+      fontFamily: {
+
+        OldEnglishFive: ["OldEnglishFive", "cursive"],
+      },  
     },
   },
   plugins: [],
