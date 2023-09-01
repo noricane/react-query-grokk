@@ -1,5 +1,5 @@
 "use client"
-import { getCars } from "@/utils/api";
+import { getCars, getLastSelected } from "@/utils/api";
 import { Car, SlideButtons } from "@/utils/types";
 import { useRouter } from "next/navigation";
 import CarComponent from "./CarComponent";
@@ -9,6 +9,7 @@ import CarModalComponent from "./CarModalComponent";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "../Misc/Spinner";
 import { FaRegTimesCircle } from "react-icons/fa";
+import LastSelectedComponent from "../User/LastSelectedComponent";
 
 
 
@@ -29,6 +30,7 @@ const CarGrid = ({}:{}) => {
   //Not sure if i will implement displayed cars functionality, but the idea is to be able to search through the cars.
   //The searched list should of course be a filtered list of the useQuary state list.
   const [displayedCars,setDisplayedCars] = React.useState<Car[]>([])
+  const lastSelectedQuery = useQuery<number>({ refetchOnWindowFocus:true,queryKey:["last_selected"], queryFn: getLastSelected, initialData: 0 });
   const { data: cars, isError,error,isFetching, failureCount } = useQuery<Car[]>({ refetchOnWindowFocus:true,queryKey:["cars"], queryFn: getCars, initialData: [] });
    
   const changeDisplayedCar = (instruction:SlideButtons) => {    
@@ -89,6 +91,7 @@ const CarGrid = ({}:{}) => {
   return (
     <section className="grid grid-cols-12 gap-4 w-full auto-rows-min	 px-4 pb-12 min-h-screen overflow-scroll">
       <input type="text" className="px-2 mt-1 col-span-full h-12  rounded-lg outline-zinc-700" />
+      <LastSelectedComponent data={lastSelectedQuery}/>
       {displayedCars.map((e:Car,idx) => (
           <CarComponent onClick={() => { setSelectedIndex(idx); setIsOpened(true) }} key={e.id} {...e}/>
       ))}
