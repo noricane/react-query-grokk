@@ -36,9 +36,9 @@ const ModalPanel = (
   return (
     <>
 
-    <dialog className='mx-auto my-auto rounded-xl outline-none relative z-10'  ref={ref}>
+    <dialog className='mx-auto my-auto rounded-xl outline-none  z-10'  ref={ref}>
         <button className='outline-none scale-125 active:scale-125 hover:scale-150 absolute z-10 right-4 top-4' onClick={() => setIsOpened(false)}><FaTimes /></button>
-        <div ref={innerDiv} className={`min-h-[8rem] min-w-[12rem] relative px-6 py-8 flex justify-center ${containerStyle}`} >
+        <div ref={innerDiv} className={`min-h-[8rem] min-w-[12rem] relative px-6 py-8 flex  ${containerStyle} justify-center`} >
             {children}
         </div>
     </dialog>

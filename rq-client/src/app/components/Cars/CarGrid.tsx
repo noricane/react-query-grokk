@@ -1,6 +1,6 @@
 "use client"
 import { getCars } from "@/utils/api";
-import { Car } from "@/utils/types";
+import { Car, SlideButtons } from "@/utils/types";
 import { useRouter } from "next/navigation";
 import CarComponent from "./CarComponent";
 import ModalPanel from "../HTML/ModalPanel";
@@ -13,6 +13,16 @@ import { FaRegTimesCircle } from "react-icons/fa";
 
 
 const CarGrid = ({}:{}) => {
+  const arrowKeysListener = (e:KeyboardEvent) => {
+    switch (e.code) {
+      case 'ArrowRight':
+        changeDisplayedCar(SlideButtons.INCREASE)
+        break;
+      case 'ArrowLeft':
+        changeDisplayedCar(SlideButtons.DECREASE)
+        break;
+    }
+  }
    const [isOpened,setIsOpened] = React.useState<boolean>(false)
    const [selected,setSelected] = React.useState<Car|null>(null)
    const [selectedIndex,setSelectedIndex] = React.useState<number>(-1)
@@ -34,29 +44,19 @@ const CarGrid = ({}:{}) => {
   }
 
   useEffect(()=>{  
-    const ArrowListener = (e:KeyboardEvent) => {
-      console.log("press");
-      
-      switch (e.code) {
-        case '39':
-          changeDisplayedCar(SlideButtons.INCREASE)
-          break;
-        case '37':
-          changeDisplayedCar(SlideButtons.DECREASE)
-          break;
-      }
-    }
-
-    window.addEventListener('keydown',ArrowListener)
-
-    return window.removeEventListener('keydown',ArrowListener)
+    
+    document.addEventListener('keydown',arrowKeysListener)
+    return ()=>{document.removeEventListener('keydown',arrowKeysListener)}
   },[])
+
   useEffect(()=>{  
     setSelected(displayedCars[selectedIndex])
   },[selectedIndex])
+
    useEffect(()=>{
     setDisplayedCars(cars)
   },[cars])
+
    /* If refetch is empty and modal is openeded, we must close it. */
    useEffect(()=>{
     if(!cars.length && selected && isOpened){
@@ -65,7 +65,6 @@ const CarGrid = ({}:{}) => {
       setSelected(null)
     }
   },[cars])
-
 
   /* Handle the states different non-success useQuery states */  
   if (isError) return (
@@ -94,15 +93,9 @@ const CarGrid = ({}:{}) => {
             <CarComponent onClick={() => { setSelectedIndex(idx); setIsOpened(true) }} key={e.id} {...e}/>
         ))}
         {selected && isOpened && 
-          <>
-          <div className="absolute w-24 h-24 bg-blue-200 z-100  top-0">asd</div>
-          <div className="relative w-full h-full top-0">
-            <ModalPanel containerStyle={"md:min-h-[36rem] md:w-[44rem]"} name={"carSelectedModal"} isOpened={isOpened} setIsOpened={setIsOpened}>
-        
+            <ModalPanel containerStyle={"md:min-h-[36rem] md:w-[44rem] items-center"} name={"carSelectedModal"} isOpened={isOpened} setIsOpened={setIsOpened}>
               <CarModalComponent changeDisplayedCar={changeDisplayedCar} {...selected} />
-          
             </ModalPanel>
-          </div></>
         }
     </section>    
   )
