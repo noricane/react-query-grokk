@@ -2,7 +2,7 @@
     "data": [
         {
             "id": 1,
-            "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/2015-03-03_Geneva_Motor_Show_3893.JPG/1024px-2015-03-03_Geneva_Motor_Show_3893.JPG",
+            "img": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Rolls-Royce_Phantom_VIII_Black_%2832%29.jpg",
             "manufacturer": "Rolls Royce",
             "model": "Phantom Serenity",
             "price": 874762,
@@ -74,7 +74,7 @@
         },
         {
             "id": 3,
-            "img": "http://d20efxdfa6g8fm.cloudfront.net/wp-content/uploads/2016/08/12163018/image0153-1024x617.jpg",
+            "img": "https://upload.wikimedia.org/wikipedia/commons/3/31/Bugatti_Chiron_Sport_Genf_2018.jpg",
             "video": "https://www.youtube.com/embed/KX3UuRSHHSA",
             "manufacturer": "Bugatti",
             "model": "Chiron",
@@ -146,7 +146,7 @@
         },
         {
             "id": 5,
-            "img": "http://d20efxdfa6g8fm.cloudfront.net/wp-content/uploads/2016/08/12163045/image0193-1024x512.jpg",
+            "img": "https://upload.wikimedia.org/wikipedia/commons/3/36/Pagani%2C_GIMS_2019%2C_Le_Grand-Saconnex_%28GIMS0023%29.jpg",
             "video": "https://www.youtube.com/embed/eBUrFd1TUIU",
             "manufacturer": "Pagani",
             "model": "Huayra BC",
@@ -182,7 +182,7 @@
         },
         {
             "id": 6,
-            "img": "http://d20efxdfa6g8fm.cloudfront.net/wp-content/uploads/2016/08/12163103/image0232.jpg",
+            "img": "https://upload.wikimedia.org/wikipedia/commons/1/16/W_Motors_Fenyr_Supersport_III_Genf_2018.jpg",
             "video": "https://www.youtube.com/embed/fe4Qoy_UZ6Q",
             "manufacturer": "W Motors",
             "model": "Lykan Hypersport",
@@ -218,7 +218,7 @@
         },
         {
             "id": 7,
-            "img": "http://d20efxdfa6g8fm.cloudfront.net/wp-content/uploads/2016/08/12163115/image0252-1024x626.jpg",
+            "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Geneva_MotorShow_2013_-_Lamborghini_Veneno_1.jpg/2560px-Geneva_MotorShow_2013_-_Lamborghini_Veneno_1.jpg",
             "video": "https://www.youtube.com/embed/yNw19Zv6Ee4",
             "manufacturer": "Lamborghini",
             "model": "Veneno",
@@ -254,7 +254,7 @@
         },
         {
             "id": 8,
-            "img": "http://d20efxdfa6g8fm.cloudfront.net/wp-content/uploads/2016/08/12163120/image0272.jpg",
+            "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Koenigsegg_CCX_-_Flickr_-_Alexandre_Pr%C3%A9vot_%2811%29.jpg/1500px-Koenigsegg_CCX_-_Flickr_-_Alexandre_Pr%C3%A9vot_%2811%29.jpg",
             "video": "https://www.youtube.com/embed/Z7NrjnFnwg0",
             "manufacturer": "Koenigsegg",
             "model": "CCXR Trevita",
@@ -290,10 +290,10 @@
         },
         {
             "id": 9,
-            "img": "http://d20efxdfa6g8fm.cloudfront.net/wp-content/uploads/2016/08/12163125/image0292.jpg",
-            "video": "https://www.youtube.com/embed/bIJzaudp4h4",
+            "img": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Vision_Mercedes-Maybach_6_Cabriolet_IMG_0591.jpg",
+            "video": "https://www.youtube.com/watch?v=4MNJdnQLvBw&pp=ygUSTWVyY2VkZXMtTWF5YmFjaF82",
             "manufacturer": "Mercedes-Benz",
-            "model": "Maybach Exelero",
+            "model": "Maybach 6 Cabriolet",
             "price": 6352684,
             "quality": [
                 {
@@ -321,8 +321,8 @@
                     "rating": 4
                 }
             ],
-            "wiki": "https://en.wikipedia.org/wiki/Maybach_Exelero",
-            "description": "Maybach Exelero is a one-of-a-kind sports car, first manufactured twelve years ago. This 700-hp, two-door, four-seater has a twin turbo V12 engine and is famous for being purchased by an American rap star. The cost this car comes out to being around £6 million. Nevertheless, the cost is not the only lofty number. This vehicle can also reach a speed of 218 mph."
+            "wiki": "https://en.wikipedia.org/wiki/Mercedes-Maybach_6",
+            "description": "The Vision Mercedes-Maybach 6 is a concept car unveiled by German car manufacturer Mercedes-Benz, under its Maybach division, at the 2016 Pebble Beach Concours d'Elegance. It is a 2+2 coupé that features an all-electric powertrain with a claimed range of over 200 miles (322 km)."
         }
     ]
 }

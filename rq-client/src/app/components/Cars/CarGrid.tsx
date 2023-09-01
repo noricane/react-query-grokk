@@ -14,7 +14,7 @@ const CarGrid = ({}:{}) => {
      const [isOpened,setIsOpened] = React.useState<boolean>(false)
      const [selected,setSelected] = React.useState<Car|null>(null)
 
-  const { data: cars, status,isLoading } = useQuery<Car[]>({ queryKey:["cars"], queryFn: getCars, initialData: [] });
+  const { data: cars, status,isInitialLoading,isFetching } = useQuery<Car[]>({ refetchOnWindowFocus:true,queryKey:["cars"], queryFn: getCars, initialData: [] });
   /* const cars: Car[] = [
     {
     id: 1,
@@ -38,7 +38,8 @@ const CarGrid = ({}:{}) => {
 
   ]; */
   
-  if (isLoading) return <SpinnerPage/>
+
+  if (isFetching == true) return <SpinnerPage />
   return (
     
     <section className="grid grid-cols-12 gap-4 w-full auto-rows-min	 px-4 pb-12 min-h-screen overflow-scroll">
