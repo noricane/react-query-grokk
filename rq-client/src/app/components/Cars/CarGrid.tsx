@@ -90,8 +90,8 @@ const CarGrid = ({}:{}) => {
   /* Successfully fetched data state */
   return (
     <section className="grid grid-cols-12 gap-4 w-full auto-rows-min	 px-4 pb-12 min-h-screen overflow-scroll">
-      <input type="text" className="px-2 mt-1 col-span-full h-12  rounded-lg outline-zinc-700" />
       <LastSelectedComponent data={lastSelectedQuery}/>
+      <input type="text" className="px-2 mt-1 col-span-full h-12  rounded-lg outline-zinc-700" />
       {displayedCars.map((e:Car,idx) => (
           <CarComponent onClick={() => { setSelectedIndex(idx); setIsOpened(true) }} key={e.id} {...e}/>
       ))}

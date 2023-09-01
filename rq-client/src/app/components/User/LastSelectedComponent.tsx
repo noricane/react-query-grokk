@@ -26,7 +26,7 @@ const LastSelectedComponent = ({data}:{data:DefinedUseQueryResult<number, unknow
           Loading last selected
         </>);
   return (
-    <div>{lastSelected}</div>
+    <div className='h-12 col-span-full flex items-center justify-center w-full text-center bg-white rounded-xl'>{lastSelected}</div>
   )
 }
 
