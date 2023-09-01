@@ -11,6 +11,7 @@ import (
 )
 func main() {
 	godotenv.Load()
+	
 	app := fiber.New()
 	var environment string
 	if env := os.Getenv("ENVIRONMENT"); env != "DEVELOPMENT" {
