@@ -5,12 +5,12 @@ import (
 	"os"
 	"rq-server/routes"
 	"time"
-
+	"github.com/joho/godotenv"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 func main() {
-
+	godotenv.Load()
 	app := fiber.New()
 	var environment string
 	if env := os.Getenv("ENVIRONMENT"); env != "DEVELOPMENT" {
