@@ -1,11 +1,29 @@
 package routes
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"fmt"
+
+	"github.com/gofiber/fiber/v2"
+)
+
+//Json data starts at id=1 so it is alright that this initializes to 0
+var lastCarClickedId int
 
 
-func GetLastCarClicked(c *fiber.Ctx) error {
-	return c.SendStatus(fiber.StatusNotImplemented)
+func GetLastCarClickedId(c *fiber.Ctx) error {
+	fmt.Printf("Last clicked id is: %d", lastCarClickedId)
+	return c.Status(200).JSON(lastCarClickedId)
 }
-func SetLastCarClicked(c *fiber.Ctx) error {
+
+func SetLastCarClickedId(c *fiber.Ctx) error {
+	payload := struct{
+		CarId int `json:"car_id"`
+	}{}
+	if err := c.BodyParser(&payload); err != nil {
+		return c.SendStatus(fiber.StatusBadRequest)
+
+	}
+	lastCarClickedId = payload.CarId
+	fmt.Printf("Last clicked id is now: %d", lastCarClickedId)
 	return c.SendStatus(fiber.StatusNotImplemented)
 }

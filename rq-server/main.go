@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"rq-server/routes"
-	"time"
 	"github.com/joho/godotenv"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -52,9 +51,12 @@ func listen(port int, app *fiber.App) {
 }
 
 func setupRoutes(app *fiber.App) {
-	time.Sleep(1000)
-	app.Get("/", func(c *fiber.Ctx)error{
-		return c.Status(200).JSON("HELO World 🌍")
-	})
+	//Random standard route
+	app.Get("/", func(c *fiber.Ctx)error{return c.Status(200).JSON("HELO World 🌍")})
+	
+	//Car routes
 	app.Get("/cars",routes.GetCars)
+	//User routes
+	app.Get("/user/get_last_clicked",routes.GetLastCarClickedId)
+	app.Post("/user/set_last_clicked",routes.SetLastCarClickedId)
 }
