@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"rq-server/routes"
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
@@ -49,6 +51,7 @@ func listen(port int, app *fiber.App) {
 }
 
 func setupRoutes(app *fiber.App) {
+	time.Sleep(1000)
 	app.Get("/", func(c *fiber.Ctx)error{
 		return c.Status(200).JSON("HELO World 🌍")
 	})

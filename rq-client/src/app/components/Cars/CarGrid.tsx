@@ -6,15 +6,15 @@ import CarComponent from "./CarComponent";
 import ModalPanel from "../HTML/ModalPanel";
 import React from "react";
 import CarModalComponent from "./CarModalComponent";
-import { QueryClient, QueryClientProvider, QueryKey, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import SpinnerPage from "../Misc/SpinnerPage";
 
-const queryClient = new QueryClient();
 
 const CarGrid = ({}:{}) => {
      const [isOpened,setIsOpened] = React.useState<boolean>(false)
      const [selected,setSelected] = React.useState<Car|null>(null)
 
-  const { data: cars } = useQuery<Car[]>({ queryKey:["cars"], queryFn: getCars, initialData: [] });
+  const { data: cars, status,isLoading } = useQuery<Car[]>({ queryKey:["cars"], queryFn: getCars, initialData: [] });
   /* const cars: Car[] = [
     {
     id: 1,
@@ -37,8 +37,10 @@ const CarGrid = ({}:{}) => {
     },
 
   ]; */
+  
+  if (isLoading) return <SpinnerPage/>
   return (
-    <QueryClientProvider client={queryClient}>
+    
     <section className="grid grid-cols-12 gap-4 w-full auto-rows-min	 px-4 pb-12 min-h-screen overflow-scroll">
         <input type="text" className="px-2 mt-1 col-span-full h-12  rounded-lg outline-zinc-700" />
         {cars.map((e:Car) => (
@@ -51,7 +53,7 @@ const CarGrid = ({}:{}) => {
         }
     </section>
 
-    </QueryClientProvider>
+    
   )
 }
 
