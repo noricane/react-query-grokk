@@ -7,6 +7,6 @@ export async function getCars():Promise<Car[]>{
         const res = await axios.get(`${url}/cars`)
         return res.data
     } catch (error) {
-        return []
+        throw new Error((error as Error).message);
     }
 }

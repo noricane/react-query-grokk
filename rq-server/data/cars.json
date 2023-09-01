@@ -254,11 +254,11 @@
         },
         {
             "id": 8,
-            "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Koenigsegg_CCX_-_Flickr_-_Alexandre_Pr%C3%A9vot_%2811%29.jpg/1500px-Koenigsegg_CCX_-_Flickr_-_Alexandre_Pr%C3%A9vot_%2811%29.jpg",
-            "video": "https://www.youtube.com/embed/Z7NrjnFnwg0",
-            "manufacturer": "Koenigsegg",
-            "model": "CCXR Trevita",
-            "price": 3851060,
+            "img": "https://upload.wikimedia.org/wikipedia/commons/4/40/Vision_Mercedes-Maybach_6_-_Mondial_de_l%27Automobile_de_Paris_2016_-_002.jpg",
+            "video": "https://www.youtube.com/watch?v=qa3Fni2aE4s",
+            "manufacturer": "Mercedes-Benz",
+            "model": "Maybach 6",
+            "price": 6352684,
             "quality": [
                 {
                     "name": "overall",
@@ -274,19 +274,19 @@
                 },
                 {
                     "name": "body",
-                    "rating": 5
+                    "rating": 4
                 },
                 {
                     "name": "interior",
-                    "rating": 3
+                    "rating": 5
                 },
                 {
                     "name": "accessories",
-                    "rating": 3
+                    "rating": 4
                 }
             ],
-            "wiki": "https://en.wikipedia.org/wiki/Koenigsegg_CCX#CCXR_Trevita",
-            "description": "The CCXR Trevita is a limited edition of the Koenigsegg CCXR Edition featuring a diamond weave carbon fibre finish. Trevita is an abbreviation in Swedish and translates into 'three whites'. Up until the development of the CCXR Trevita, it has only been possible to utilize the classic black carbon fibres. The Koenigsegg Proprietary Diamond Weave, fully developed by Koenigsegg, is a new and unique method to manufacture the carbon fibre material for the CCXR Trevita. It is one of the most expensive vehicles on this list at £3.85 million."
+            "wiki": "https://en.wikipedia.org/wiki/Mercedes-Maybach_6",
+            "description": "The Vision Mercedes-Maybach 6 is a concept car unveiled by German car manufacturer Mercedes-Benz, under its Maybach division, at the 2016 Pebble Beach Concours d'Elegance. It is a 2+2 coupé that features an all-electric powertrain with a claimed range of over 200 miles (322 km)."
         },
         {
             "id": 9,
@@ -323,6 +323,43 @@
             ],
             "wiki": "https://en.wikipedia.org/wiki/Mercedes-Maybach_6",
             "description": "The Vision Mercedes-Maybach 6 is a concept car unveiled by German car manufacturer Mercedes-Benz, under its Maybach division, at the 2016 Pebble Beach Concours d'Elegance. It is a 2+2 coupé that features an all-electric powertrain with a claimed range of over 200 miles (322 km)."
+        },
+        {
+            "id": 10,
+            "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Koenigsegg_CCX_-_Flickr_-_Alexandre_Pr%C3%A9vot_%2811%29.jpg/1500px-Koenigsegg_CCX_-_Flickr_-_Alexandre_Pr%C3%A9vot_%2811%29.jpg",
+            "video": "https://www.youtube.com/embed/Z7NrjnFnwg0",
+            "manufacturer": "Koenigsegg",
+            "model": "CCXR Trevita",
+            "price": 3851060,
+            "quality": [
+                {
+                    "name": "overall",
+                    "rating": 5
+                },
+                {
+                    "name": "mechanical",
+                    "rating": 4
+                },
+                {
+                    "name": "powertrain",
+                    "rating": 5
+                },
+                {
+                    "name": "body",
+                    "rating": 5
+                },
+                {
+                    "name": "interior",
+                    "rating": 3
+                },
+                {
+                    "name": "accessories",
+                    "rating": 3
+                }
+            ],
+            "wiki": "https://en.wikipedia.org/wiki/Koenigsegg_CCX#CCXR_Trevita",
+            "description": "The CCXR Trevita is a limited edition of the Koenigsegg CCXR Edition featuring a diamond weave carbon fibre finish. Trevita is an abbreviation in Swedish and translates into 'three whites'. Up until the development of the CCXR Trevita, it has only been possible to utilize the classic black carbon fibres. The Koenigsegg Proprietary Diamond Weave, fully developed by Koenigsegg, is a new and unique method to manufacture the carbon fibre material for the CCXR Trevita. It is one of the most expensive vehicles on this list at £3.85 million."
         }
+    
     ]
 }
