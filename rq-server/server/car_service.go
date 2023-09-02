@@ -10,17 +10,17 @@ import (
 
 
 
-func GetCar(id int)(Car,error){
+func GetCar(id int)(Car,int,error){
 	cars,err := GetAllCars()
 	if err != nil {
-		return Car{}, err
+		return Car{},500 ,err
 	}
 	for _,c := range cars {
 		if c.Id == id {
-			return c,nil
+			return c,200,nil
 		}
 	}
-	return Car{},fmt.Errorf("Could not find a car with Id: %d", id)
+	return Car{},404,fmt.Errorf("Could not find a car with Id: %d", id)
 }
 func GetAllCars()([]Car,error){
 	content, err := os.ReadFile("data/cars.json")
