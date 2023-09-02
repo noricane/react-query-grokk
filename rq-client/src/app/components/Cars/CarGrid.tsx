@@ -102,7 +102,7 @@ const CarGrid = ({}:{}) => {
     <div className='flex-1 w-screen flex justify-center items-center'>
       <Spinner error={false}/>
     </div>);
-  
+   
   /* Successfully fetched data state */
   return (
     <section className="grid grid-cols-12 gap-4 w-full auto-rows-min	 px-4 pb-12 min-h-screen overflow-scroll">
