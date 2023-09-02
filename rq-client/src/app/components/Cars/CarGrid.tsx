@@ -56,15 +56,17 @@ const CarGrid = ({}:{}) => {
       setSelected(displayedCars[selectedIndex])
   },[selectedIndex])
 
+  useEffect(()=>{ console.log(isOpened);
+   })
   useEffect(()=>{ setDisplayedCars(cars) },[cars])
 
    /* If refetch is empty and modal is openeded, we must close it. */
   useEffect(()=>{
-    if(!cars.length && selected != null && isOpened){
-      setIsOpened(false)
-      setSelectedIndex(-1)
-      setSelected(null)
-    }
+    if(cars.length > 0) return
+    setIsOpened(false)
+    setSelectedIndex(-1)
+    setSelected(null)
+
   },[cars])
 
   /* Handle the states different non-success useQuery states */  
@@ -91,7 +93,7 @@ const CarGrid = ({}:{}) => {
   return (
     <section className="grid grid-cols-12 gap-4 w-full auto-rows-min	 px-4 pb-12 min-h-screen overflow-scroll">
       <LastSelectedComponent data={lastSelectedQuery}/>
-      <input type="text" className="px-2 mt-1 col-span-full h-12  rounded-lg outline-zinc-700" />
+      <input type="text" placeholder="might implement search here, maybe." className="text-lg px-2 mt-1 col-span-full h-12  rounded-lg outline-zinc-700" />
       {displayedCars.map((e:Car,idx) => (
           <CarComponent onClick={() => { setSelectedIndex(idx); setIsOpened(true) }} key={e.id} {...e}/>
       ))}

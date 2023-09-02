@@ -12,11 +12,17 @@ const CarComponent = (
            { <img draggable={false} className=' object-center w-[inherit] h-[inherit] object-cover' src={img} alt={`An image of a ${manufacturer} ${model}`} />}
             {/* <Image width={720} height={1280} className=' object-center w-[inherit] h-[inherit] object-cover' src={img} alt={`An image of a ${manufacturer} ${model}`} /> */}
         </div>
-        <section className='w-full h-32 p-2'>
+        <div className='flex items-center px-1'>
+        <section className='w-full h-32 p-2 relative'>
             <h1 className='font-semibold text-zinc-800 text-2xl'>{model}</h1>
             <h2 className='font-semibold text-zinc-700 text-xl'>{manufacturer}</h2>
             <h2 className='font-semibold text-zinc-600 '>{`$${price.toLocaleString("en-US")}`}</h2>
+      
         </section>
+        <button className='w-36 h-12 bg-black rounded-lg text-white font-semibold' onClick={(e)=>{e.stopPropagation();console.log("Send to server")}}>
+            Select Car
+        </button>
+        </div>
    </article>
   )
 }
