@@ -2,9 +2,12 @@ import { DefinedUseQueryResult, UseQueryOptions } from '@tanstack/react-query'
 import React from 'react'
 import { FaRegTimesCircle } from 'react-icons/fa';
 import Spinner from '../Misc/Spinner';
+import { Car } from '@/utils/types';
 
-const LastSelectedComponent = ({data}:{data:DefinedUseQueryResult<number, unknown>}) => {
+const LastSelectedComponent = ({data}:{data:DefinedUseQueryResult<Car, unknown>}) => {
     const {data:lastSelected, isError,error,isFetching, failureCount } = data
+
+    
     if (isError) return (
         <div className='h-48 col-span-full flex flex-col items-center justify-center w-full text-center bg-white rounded-xl'>
           <FaRegTimesCircle color="red" size={50}/>
@@ -29,7 +32,7 @@ const LastSelectedComponent = ({data}:{data:DefinedUseQueryResult<number, unknow
           Loading last selected
         </div>);
   return (
-    <div className='h-48 col-span-full flex items-center justify-center w-full text-center bg-white rounded-xl'>{lastSelected}</div>
+    <div className='h-48 col-span-full flex items-center justify-center w-full text-center bg-white rounded-xl'>{lastSelected.model}</div>
   )
 }
 

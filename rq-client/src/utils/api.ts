@@ -11,7 +11,7 @@ export async function getCars():Promise<Car[]>{
     }
 }
 
-export async function getLastSelected():Promise<number>{
+export async function getLastSelected():Promise<Car>{
     try {
         const res = await axios.get(`${url}/user/get_last_clicked`)
         return res.data

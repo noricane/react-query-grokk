@@ -30,7 +30,7 @@ const CarGrid = ({}:{}) => {
   //Not sure if i will implement displayed cars functionality, but the idea is to be able to search through the cars.
   //The searched list should of course be a filtered list of the useQuary state list.
   const [displayedCars,setDisplayedCars] = React.useState<Car[]>([])
-  const lastSelectedQuery = useQuery<number>({ refetchOnWindowFocus:true,queryKey:["last_selected"], queryFn: getLastSelected, initialData: 0 });
+  const lastSelectedQuery = useQuery<Car>(["last_selected"], getLastSelected,{refetchOnWindowFocus:true, initialData:{} as Car});
   const { data: cars, isError,error,isFetching, failureCount } = useQuery<Car[]>({ refetchOnWindowFocus:true,queryKey:["cars"], queryFn: getCars, initialData: [] });
    
   const changeDisplayedCar = (instruction:SlideButtons) => {    
