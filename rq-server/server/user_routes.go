@@ -6,7 +6,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// Json data starts at id=1 so it is alright that this initializes to 0
+//Hold state within this variable, I'm grokking react-query. No need for persistence.
+//Json data starts at id=1 so it is alright that this initializes to 0
 var lastCarClickedId int
 
 func GetLastCarClickedId(c *fiber.Ctx) error {

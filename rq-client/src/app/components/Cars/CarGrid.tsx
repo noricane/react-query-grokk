@@ -18,6 +18,10 @@ const CarGrid = ({}:{}) => {
   
   const [isOpened,setIsOpened] = React.useState<boolean>(false)
   const [selected,setSelected] = React.useState<Car|null>(null)
+
+  //Make selectedId, why? let's say we have a new list where we append a new car to head.
+  //The selected index will now be the previous car before the real selected car.
+  //Applying the Id idea we will always have the same car upon state change.
   const [selectedIndex,setSelectedIndex] = React.useState<number>(-1)
   //Not sure if i will implement displayed cars functionality, but the idea is to be able to search through the cars.
   //The searched list should of course be a filtered list of the useQuary state list.
@@ -45,12 +49,12 @@ const CarGrid = ({}:{}) => {
   const changeDisplayedCar =(instruction:SlideButtons) => {        
     switch (instruction) {
       case SlideButtons.INCREASE:
-        setSelectedIndex(prev => prev++%displayedCars.length)
+        setSelectedIndex(prev => (prev+1)%displayedCars.length)
         break;
       case SlideButtons.DECREASE:
         setSelectedIndex(prev => {
           if(prev-1 < 0) return displayedCars.length-1 
-          return prev--
+          return prev-1
         })    
         break;
     }
@@ -61,7 +65,6 @@ const CarGrid = ({}:{}) => {
     return ()=>{document.removeEventListener('keydown',arrowKeysListener)}
   },[displayedCars])
 
-  useEffect(()=>{console.log(selectedIndex)},[selectedIndex])
 
   useEffect(()=>{     
     if(selectedIndex == -1 || isNaN(selectedIndex)) setSelected(null)
@@ -69,7 +72,7 @@ const CarGrid = ({}:{}) => {
   },[selectedIndex])
 
 
-  useEffect(()=>{ setDisplayedCars(prev => [...cars]) },[cars])
+  useEffect(()=>{ setDisplayedCars([...cars]) },[cars])
 
    /* If refetch is empty and modal is openeded, we must close it. */
   useEffect(()=>{

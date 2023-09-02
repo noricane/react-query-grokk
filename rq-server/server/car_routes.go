@@ -7,6 +7,7 @@ import (
 )
 
 func GetCars(c *fiber.Ctx) error {
+	
 	fmt.Printf("Getting cars\n")
 	data,err := GetAllCars()
 	if err != nil {
