@@ -2,8 +2,7 @@ package server
 
 import (
 	"fmt"
-	"time"
-
+	//"time"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -11,10 +10,14 @@ import (
 var lastCarClickedId int
 
 func GetLastCarClickedId(c *fiber.Ctx) error {
-	//Maybe send the car here instead
-	time.Sleep(5 * time.Second)
+	//Timer just to test loading state of component etc.
+	//time.Sleep(5 * time.Second)
+	res,err := GetCar(lastCarClickedId)
+	if err != nil {
+		c.Status(480).JSON(err)
+	}
 	fmt.Printf("Last clicked id is: %d", lastCarClickedId)
-	return c.Status(200).JSON(lastCarClickedId)
+	return c.Status(200).JSON(res)
 }
 
 func SetLastCarClickedId(c *fiber.Ctx) error {
