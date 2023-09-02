@@ -15,14 +15,14 @@ const LastSelectedComponent = ({data}:{data:DefinedUseQueryResult<number, unknow
     
       if (failureCount > 0) return (
         <>
-          <Spinner />
+          <Spinner error={true}/>
           <div>Failed, trying again</div>
         </>
     );
     
       if (isFetching == true) return (
         <>
-          <Spinner />
+          <Spinner error={!true}/>
           Loading last selected
         </>);
   return (

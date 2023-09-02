@@ -57,6 +57,6 @@ func setupRoutes(app *fiber.App) {
 	//Car routes
 	app.Get("/cars",routes.GetCars)
 	//User routes
-	app.Get("/user/get_last_clicked",routes.GetLastCarClickedId)
-	app.Post("/user/set_last_clicked",routes.SetLastCarClickedId)
+	//app.Get("/user/get_last_clicked",routes.GetLastCarClickedId)
+	//app.Post("/user/set_last_clicked",routes.SetLastCarClickedId)
 }
