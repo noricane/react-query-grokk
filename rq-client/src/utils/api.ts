@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { url } from "./global";
 import { Car } from "./types";
 
@@ -7,7 +7,7 @@ export async function getCars():Promise<Car[]>{
         const res = await axios.get(`${url}/cars`)
         return res.data
     } catch (error) {
-        throw new Error((error as Error).message);
+        throw error as AxiosError
     }
 }
 
@@ -16,7 +16,8 @@ export async function getLastSelected():Promise<Car>{
         const res = await axios.get(`${url}/user/get_last_clicked`)
         return res.data
     } catch (error) {
-        throw new Error((error as Error).message);
+        throw error as AxiosError
+
     }
 }
 
@@ -25,6 +26,6 @@ export async function setLastSelected(id:number):Promise<boolean>{
         const res = await axios.post(`${url}/user/get_last_clicked`,{id})
         return res.status == 200 ? true : false
     } catch (error) {
-        throw new Error((error as Error).message);
+        throw error as AxiosError
     }
 }

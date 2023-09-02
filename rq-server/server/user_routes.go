@@ -10,13 +10,15 @@ import (
 var lastCarClickedId int
 
 func GetLastCarClickedId(c *fiber.Ctx) error {
+	fmt.Printf("Last clicked id is: %d\n", lastCarClickedId)
+
 	//Timer just to test loading state of component etc.
 	//time.Sleep(5 * time.Second)
 	res,status,err := GetCar(lastCarClickedId)
 	if err != nil {
-		c.Status(status).JSON(err)
+		fmt.Printf("ERROR HERE\n")
+		return c.Status(status).JSON(err.Error())
 	}
-	fmt.Printf("Last clicked id is: %d", lastCarClickedId)
 	return c.Status(status).JSON(res)
 }
 

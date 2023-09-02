@@ -4,42 +4,54 @@ import { Car, SlideButtons } from "@/utils/types";
 import { useRouter } from "next/navigation";
 import CarComponent from "./CarComponent";
 import ModalPanel from "../HTML/ModalPanel";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import CarModalComponent from "./CarModalComponent";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "../Misc/Spinner";
 import { FaRegTimesCircle } from "react-icons/fa";
 import LastSelectedComponent from "../User/LastSelectedComponent";
+import { AxiosError } from "axios";
 
 
 
 const CarGrid = ({}:{}) => {
-  const arrowKeysListener = (e:KeyboardEvent) => {
-    switch (e.code) {
-      case 'ArrowRight':
-        changeDisplayedCar(SlideButtons.INCREASE)
-        break;
-      case 'ArrowLeft':
-        changeDisplayedCar(SlideButtons.DECREASE)
-        break;
-    }
-  }
+  
   const [isOpened,setIsOpened] = React.useState<boolean>(false)
   const [selected,setSelected] = React.useState<Car|null>(null)
   const [selectedIndex,setSelectedIndex] = React.useState<number>(-1)
   //Not sure if i will implement displayed cars functionality, but the idea is to be able to search through the cars.
   //The searched list should of course be a filtered list of the useQuary state list.
   const [displayedCars,setDisplayedCars] = React.useState<Car[]>([])
-  const lastSelectedQuery = useQuery<Car>(["last_selected"], getLastSelected,{refetchOnWindowFocus:true, initialData:{} as Car});
-  const { data: cars, isError,error,isFetching, failureCount } = useQuery<Car[]>({ refetchOnWindowFocus:true,queryKey:["cars"], queryFn: getCars, initialData: [] });
-   
-  const changeDisplayedCar = (instruction:SlideButtons) => {    
+  const lastSelectedQuery = useQuery<Car,AxiosError>(["last_selected"], getLastSelected,{
+    refetchOnWindowFocus:true, 
+    initialData:{} as Car, 
+    retry: (failureCount, error) => {
+      return failureCount < 4 && (error as AxiosError).response?.status !== 404
+    },
+  });
+  const { data: cars, isError,error,isFetching, failureCount } = useQuery<Car[],AxiosError>({ refetchOnWindowFocus:true,queryKey:["cars"], queryFn: getCars, initialData: [] });
+  
+  
+  const arrowKeysListener = (e:KeyboardEvent) => {
+    switch (e.code) {
+      case 'ArrowRight':
+        changeDisplayedCar(SlideButtons.DECREASE)
+        return
+      case 'ArrowLeft':
+        changeDisplayedCar(SlideButtons.INCREASE)
+        return
+    }
+  }
+  const changeDisplayedCar =(instruction:SlideButtons) => {        
     switch (instruction) {
       case SlideButtons.INCREASE:
-        setSelectedIndex(prev => (prev+1)%displayedCars.length)
+        setSelectedIndex(prev => prev++%displayedCars.length)
         break;
       case SlideButtons.DECREASE:
-        setSelectedIndex(prev => prev-1 == -1 ? (displayedCars.length - prev-1)%displayedCars.length: (prev-1)%displayedCars.length)    
+        setSelectedIndex(prev => {
+          if(prev-1 < 0) return displayedCars.length-1 
+          return prev--
+        })    
         break;
     }
   }
@@ -47,18 +59,17 @@ const CarGrid = ({}:{}) => {
   useEffect(()=>{  
     document.addEventListener('keydown',arrowKeysListener)
     return ()=>{document.removeEventListener('keydown',arrowKeysListener)}
-  },[])
+  },[displayedCars])
 
-  useEffect(()=>{  
-    if(selectedIndex > displayedCars.length -1 || selectedIndex < 0) 
-      setSelected(null)
-    else
-      setSelected(displayedCars[selectedIndex])
+  useEffect(()=>{console.log(selectedIndex)},[selectedIndex])
+
+  useEffect(()=>{     
+    if(selectedIndex == -1 || isNaN(selectedIndex)) setSelected(null)
+    else setSelected(displayedCars[selectedIndex])
   },[selectedIndex])
 
-  useEffect(()=>{ console.log(isOpened);
-   })
-  useEffect(()=>{ setDisplayedCars(cars) },[cars])
+
+  useEffect(()=>{ setDisplayedCars(prev => [...cars]) },[cars])
 
    /* If refetch is empty and modal is openeded, we must close it. */
   useEffect(()=>{
@@ -97,7 +108,7 @@ const CarGrid = ({}:{}) => {
       {displayedCars.map((e:Car,idx) => (
           <CarComponent onClick={() => { setSelectedIndex(idx); setIsOpened(true) }} key={e.id} {...e}/>
       ))}
-      {selected && isOpened && 
+      {isOpened && selected != null && 
           <ModalPanel containerStyle={"md:min-h-[36rem] md:w-[44rem] items-center"} name={"carSelectedModal"} isOpened={isOpened} setIsOpened={setIsOpened}>
             <CarModalComponent changeDisplayedCar={changeDisplayedCar} {...selected} />
           </ModalPanel>}
