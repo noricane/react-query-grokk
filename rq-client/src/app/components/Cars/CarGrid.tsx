@@ -29,14 +29,8 @@ const CarGrid = ({}:{}) => {
   //The searched list should of course be a filtered list of the useQuary state list.
   const [displayedCars,setDisplayedCars] = React.useState<Car[]>([])
 
+  
   const queryClient = useQueryClient()
-  const lastSelecteduseQueryState = useQuery<Car,AxiosError>(lastSelectedQuery, getLastSelected,{
-    refetchOnWindowFocus:false, 
-    initialData:{} as Car, 
-    retry: (failureCount, error) => {
-      return failureCount < 4 && (error as AxiosError).response?.status !== 404
-    },
-  });
   const setLastSelectedMutation = useMutation(setLastSelected,{
     onSuccess:()=>{
       queryClient.invalidateQueries(lastSelectedQuery)
@@ -48,10 +42,10 @@ const CarGrid = ({}:{}) => {
   
   const arrowKeysListener = (e:KeyboardEvent) => {
     switch (e.code) {
-      case 'ArrowRight':
+      case 'ArrowLeft':
         changeDisplayedCar(SlideButtons.DECREASE)
         return
-      case 'ArrowLeft':
+      case 'ArrowRight':
         changeDisplayedCar(SlideButtons.INCREASE)
         return
     }
@@ -115,11 +109,8 @@ const CarGrid = ({}:{}) => {
 
   /* Successfully fetched data state */
   return (
-    <section className="grid grid-cols-12 gap-4 w-full auto-rows-min	 px-4 pb-12 min-h-screen overflow-scroll">
-      <LastSelectedComponent data={lastSelecteduseQueryState}/>
-      <NewWhipComponent />
+    <>
       
-      <input type="text" placeholder="might implement search here, maybe." className="text-lg px-2 mt-1 col-span-full h-12  rounded-lg outline-zinc-700" />
       {displayedCars.map((e:Car,idx) => (
           <CarComponent selectCar={() => setLastSelectedMutation.mutate(e.id)} onClick={() => { setSelectedIndex(idx); setIsOpened(true) }} key={e.id} {...e}/>
       ))}
@@ -127,7 +118,7 @@ const CarGrid = ({}:{}) => {
           <ModalPanel containerStyle={"md:min-h-[36rem] md:w-[44rem] items-center"} name={"carSelectedModal"} isOpened={isOpened} setIsOpened={setIsOpened}>
             <CarModalComponent changeDisplayedCar={changeDisplayedCar} {...selected} />
           </ModalPanel>}
-    </section>    
+    </>
   )
 }
 

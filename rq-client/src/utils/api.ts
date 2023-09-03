@@ -10,6 +10,14 @@ export async function getCars():Promise<Car[]>{
         throw error as AxiosError
     }
 }
+export async function addCar(c:Car):Promise<boolean>{
+    try {
+        const res = await axios.post(`${url}/cars/new`,{car:c})
+        return res.data
+    } catch (error) {
+        throw error as AxiosError
+    }
+}
 
 export async function getLastSelected():Promise<Car>{
     try {

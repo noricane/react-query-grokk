@@ -4,11 +4,12 @@ const Input = (
   {label,name,placeholder="",value, setNewVal,type="input"}:
   {label:string,name:string,placeholder?:string,value:string,setNewVal:Function,type?:"textarea"|"input"}) => {
 
-  if(type === "textarea"){
+  if(type == "textarea"){
     <label className='text-xl font-semibold h-12' htmlFor={name}>
       {label}:&nbsp;
       <textarea className='h-full font-normal px-2 rounded-lg outline-zinc-600 bg-zinc-100 '
-      name={name} 
+      rows={10}
+      name={name + "asdkalsjd"} 
       id={name} 
       value={value}
       onChange={
