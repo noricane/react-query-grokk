@@ -12,6 +12,7 @@ import { FaRegTimesCircle } from "react-icons/fa";
 import LastSelectedComponent from "../User/LastSelectedComponent";
 import { AxiosError } from "axios";
 import { carsQuery, lastSelectedQuery } from "@/utils/userQuery_consts";
+import NewWhipComponent from "./NewWhipComponent";
 
 
 
@@ -116,6 +117,8 @@ const CarGrid = ({}:{}) => {
   return (
     <section className="grid grid-cols-12 gap-4 w-full auto-rows-min	 px-4 pb-12 min-h-screen overflow-scroll">
       <LastSelectedComponent data={lastSelecteduseQueryState}/>
+      <NewWhipComponent />
+      
       <input type="text" placeholder="might implement search here, maybe." className="text-lg px-2 mt-1 col-span-full h-12  rounded-lg outline-zinc-700" />
       {displayedCars.map((e:Car,idx) => (
           <CarComponent selectCar={() => setLastSelectedMutation.mutate(e.id)} onClick={() => { setSelectedIndex(idx); setIsOpened(true) }} key={e.id} {...e}/>
