@@ -3,6 +3,7 @@ package server
 import (
 	"encoding/json"
 	"fmt"
+	"io/fs"
 
 	"log"
 	"os"
@@ -21,6 +22,26 @@ func GetCar(id int)(Car,int,error){
 		}
 	}
 	return Car{},404,fmt.Errorf("Could not find a car with Id: %d", id)
+}
+func AddNewCar(c Car)(error){
+	content, err := os.ReadFile("data/cars.json")
+	if err != nil {
+		log.Fatal("Error when opening file: ", err)
+	}
+	var payload Data
+	err = json.Unmarshal(content, &payload)
+	if err != nil {
+		log.Fatal("Error during Unmarshal(): ", err)
+		return err
+	}
+	c.Id = len(payload.Data)+1
+	payload.Data = append(payload.Data, c)
+	jsonData,err := json.Marshal(payload)
+	err = os.WriteFile("data/cars.json",jsonData,fs.FileMode(os.O_RDWR))
+	if err != nil {
+		return err
+	}
+	return nil
 }
 func GetAllCars()([]Car,error){
 	content, err := os.ReadFile("data/cars.json")

@@ -1,16 +1,17 @@
 "use client"
-import { getCars, getLastSelected } from "@/utils/api";
+import { getCars, getLastSelected, setLastSelected } from "@/utils/api";
 import { Car, SlideButtons } from "@/utils/types";
 import { useRouter } from "next/navigation";
 import CarComponent from "./CarComponent";
 import ModalPanel from "../HTML/ModalPanel";
 import React, { useCallback, useEffect } from "react";
 import CarModalComponent from "./CarModalComponent";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Spinner from "../Misc/Spinner";
 import { FaRegTimesCircle } from "react-icons/fa";
 import LastSelectedComponent from "../User/LastSelectedComponent";
 import { AxiosError } from "axios";
+import { carsQuery, lastSelectedQuery } from "@/utils/userQuery_consts";
 
 
 
@@ -26,14 +27,22 @@ const CarGrid = ({}:{}) => {
   //Not sure if i will implement displayed cars functionality, but the idea is to be able to search through the cars.
   //The searched list should of course be a filtered list of the useQuary state list.
   const [displayedCars,setDisplayedCars] = React.useState<Car[]>([])
-  const lastSelectedQuery = useQuery<Car,AxiosError>(["last_selected"], getLastSelected,{
-    refetchOnWindowFocus:true, 
+
+  const queryClient = useQueryClient()
+  const lastSelecteduseQueryState = useQuery<Car,AxiosError>(lastSelectedQuery, getLastSelected,{
+    refetchOnWindowFocus:false, 
     initialData:{} as Car, 
     retry: (failureCount, error) => {
       return failureCount < 4 && (error as AxiosError).response?.status !== 404
     },
   });
-  const { data: cars, isError,error,isFetching, failureCount } = useQuery<Car[],AxiosError>({ refetchOnWindowFocus:true,queryKey:["cars"], queryFn: getCars, initialData: [] });
+  const setLastSelectedMutation = useMutation(setLastSelected,{
+    onSuccess:()=>{
+      queryClient.invalidateQueries(lastSelectedQuery)
+    }
+  })
+
+  const { data: cars, isError,error,isFetching, failureCount } = useQuery<Car[],AxiosError>({ refetchOnWindowFocus:true,queryKey:carsQuery, queryFn: getCars, initialData: [] });
   
   
   const arrowKeysListener = (e:KeyboardEvent) => {
@@ -102,14 +111,14 @@ const CarGrid = ({}:{}) => {
     <div className='flex-1 w-screen flex justify-center items-center'>
       <Spinner error={false}/>
     </div>);
-   
+
   /* Successfully fetched data state */
   return (
     <section className="grid grid-cols-12 gap-4 w-full auto-rows-min	 px-4 pb-12 min-h-screen overflow-scroll">
-      <LastSelectedComponent data={lastSelectedQuery}/>
+      <LastSelectedComponent data={lastSelecteduseQueryState}/>
       <input type="text" placeholder="might implement search here, maybe." className="text-lg px-2 mt-1 col-span-full h-12  rounded-lg outline-zinc-700" />
       {displayedCars.map((e:Car,idx) => (
-          <CarComponent onClick={() => { setSelectedIndex(idx); setIsOpened(true) }} key={e.id} {...e}/>
+          <CarComponent selectCar={() => setLastSelectedMutation.mutate(e.id)} onClick={() => { setSelectedIndex(idx); setIsOpened(true) }} key={e.id} {...e}/>
       ))}
       {isOpened && selected != null && 
           <ModalPanel containerStyle={"md:min-h-[36rem] md:w-[44rem] items-center"} name={"carSelectedModal"} isOpened={isOpened} setIsOpened={setIsOpened}>

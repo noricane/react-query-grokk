@@ -33,7 +33,16 @@ const LastSelectedComponent = ({data}:{data:DefinedUseQueryResult<Car, AxiosErro
           Loading last selected
         </div>);
   return (
-    <div className='h-48 col-span-full flex items-center justify-center w-full text-center bg-white rounded-xl'>{lastSelected.model}</div>
+    <div className='h-64 col-span-6 flex flex-col items-center justify-center w-full text-center  rounded-xl'>
+      <h1 className='text-2xl font-semibold'>Last Selected Car</h1>
+      <section className='h-48 flex bg-zinc-100 rounded-lg overflow-hidden'>
+      { <img draggable={false} className=' object-center h-48 w-64 object-cover' src={lastSelected.img} alt={`An image of a ${lastSelected.manufacturer} ${lastSelected.model}`} />}
+        <div className='flex flex-col justify-center w-36'>
+          <h2>{lastSelected.model}</h2>
+          <h3>{lastSelected.manufacturer}</h3>
+        </div>
+      </section>
+      </div>
   )
 }
 

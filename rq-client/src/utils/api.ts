@@ -23,8 +23,8 @@ export async function getLastSelected():Promise<Car>{
 
 export async function setLastSelected(id:number):Promise<boolean>{
     try {
-        const res = await axios.post(`${url}/user/get_last_clicked`,{id})
-        return res.status == 200 ? true : false
+        const res = await axios.post(`${url}/user/set_last_clicked`,{car_id:id})
+        return res.data
     } catch (error) {
         throw error as AxiosError
     }

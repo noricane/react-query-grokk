@@ -4,8 +4,8 @@ import Image from 'next/legacy/image';
 import React from 'react'
 
 const CarComponent = (
-    {id,manufacturer,model,price,img,description,onClick,wiki}:
-    {id: number;manufacturer: string;model: string;price: number;img: string;description: string;onClick:React.MouseEventHandler<HTMLElement>,wiki:string}) => {
+    {id,manufacturer,model,price,img,description,onClick,wiki,selectCar}:
+    {id: number;manufacturer: string;model: string;price: number;img: string;description: string;onClick:React.MouseEventHandler<HTMLElement>,wiki:string,selectCar:VoidFunction}) => {
   return (
    <article className=' hover:scale-105 hover:z-10 duration-300 transition-transform relative utsm:col-span-full sm:col-span-6 lg:col-span-3 h-96'>
     <div  onClick={onClick} className=' active:brightness-95 hover:z-10 active:scale-[1.06] transition-all  bg-zinc-50 select-none !cursor-pointer rounded-lg overflow-hidden'>
@@ -24,7 +24,7 @@ const CarComponent = (
         </div>
     </div>
     {/* Button doesn't scale when clicking the card, minor ui issue. */}
-    <button className='w-36 active:bg-red-200 h-12 transition-transform absolute bottom-4 right-4 bg-black rounded-lg text-white font-semibold' onClick={(e)=>{e.stopPropagation();console.log("Send to server")}}>
+    <button onClick={selectCar} className='w-36 active:bg-red-200 h-12 transition-transform absolute bottom-4 right-4 bg-black rounded-lg text-white font-semibold' >
             Select Car
     </button>
    </article>

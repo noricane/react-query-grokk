@@ -55,6 +55,7 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/", func(c *fiber.Ctx)error{return c.Status(200).JSON("HELO World 🌍")})
 	
 	//Car routes
+	app.Post("/cars/new",server.AddCar)
 	app.Get("/cars",server.GetCars)
 	//User routes
 	app.Get("/user/get_last_clicked",server.GetLastCarClickedId)
