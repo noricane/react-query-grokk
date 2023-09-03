@@ -13,7 +13,7 @@ func AddCar(c *fiber.Ctx) error {
 	if err := c.BodyParser(&payload); err != nil {
 		return c.SendStatus(fiber.StatusBadRequest)
 	}
-	err := AddNewCar(payload.Car)
+	err := AddNewCar(&payload.Car)
 	if err != nil {
 		fmt.Printf("ERRORR is %v",err)
 		return c.SendStatus(fiber.StatusInternalServerError)

@@ -89,15 +89,7 @@
             "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Koenigsegg_CCX_-_Flickr_-_Alexandre_Pr%C3%A9vot_%2811%29.jpg/1500px-Koenigsegg_CCX_-_Flickr_-_Alexandre_Pr%C3%A9vot_%2811%29.jpg",
             "description": "The CCXR Trevita is a limited edition of the Koenigsegg CCXR Edition featuring a diamond weave carbon fibre finish. Trevita is an abbreviation in Swedish and translates into 'three whites'. Up until the development of the CCXR Trevita, it has only been possible to utilize the classic black carbon fibres. The Koenigsegg Proprietary Diamond Weave, fully developed by Koenigsegg, is a new and unique method to manufacture the carbon fibre material for the CCXR Trevita. It is one of the most expensive vehicles on this list at £3.85 million.",
             "wiki": "https://en.wikipedia.org/wiki/Koenigsegg_CCX#CCXR_Trevita"
-        },
-        {
-            "id": 11,
-            "manufacturer": "string",
-            "model": "string",
-            "price": 1234,
-            "img": "string",
-            "description": "string",
-            "wiki": "string"
         }
+        
     ]
-} 
+}
