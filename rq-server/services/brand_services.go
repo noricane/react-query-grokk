@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func GetAllBrands() (*[]string, error) {
+func GetBrands() (*[]string, error) {
 	content, err := os.ReadFile("data/brands.json")
 	if err != nil {
 		log.Fatal("Error when opening file: ", err)

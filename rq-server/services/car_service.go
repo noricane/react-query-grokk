@@ -16,7 +16,7 @@ type Data struct {
 }
 
 func GetCar(id int) (*models.Car, int, error) {
-	cars, err := GetAllCars()
+	cars, err := GetCars()
 	if err != nil {
 		return &models.Car{}, 500, err
 	}
@@ -27,7 +27,7 @@ func GetCar(id int) (*models.Car, int, error) {
 	}
 	return &models.Car{}, 404, fmt.Errorf("Could not find a car with Id: %d", id)
 }
-func AddNewCar(c *models.Car) error {
+func AddCar(c *models.Car) error {
 	content, err := os.ReadFile("data/cars.json")
 	if err != nil {
 		log.Fatal("Error when opening file: ", err)
@@ -48,7 +48,7 @@ func AddNewCar(c *models.Car) error {
 	}
 	return nil
 }
-func GetAllCars() (*[]models.Car, error) {
+func GetCars() (*[]models.Car, error) {
 	content, err := os.ReadFile("data/cars.json")
 	if err != nil {
 		log.Fatal("Error when opening file: ", err)

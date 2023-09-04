@@ -2,6 +2,14 @@ import axios, { AxiosError } from "axios";
 import { url } from "./global";
 import { Car } from "./types";
 
+export async function getBrands():Promise<string[]>{
+    try {
+        const res = await axios.get(`${url}/brands`)
+        return res.data
+    } catch (error) {
+        throw error as AxiosError
+    }
+}
 export async function getCars():Promise<Car[]>{
     try {
         const res = await axios.get(`${url}/cars`)
@@ -37,3 +45,4 @@ export async function setLastSelected(id:number):Promise<boolean>{
         throw error as AxiosError
     }
 }
+

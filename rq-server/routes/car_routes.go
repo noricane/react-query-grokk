@@ -3,9 +3,10 @@ package routes
 import (
 	"fmt"
 	//"time"
-	"github.com/gofiber/fiber/v2"
 	"rq-server/models"
 	"rq-server/services"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func AddCar(c *fiber.Ctx) error {
@@ -15,7 +16,7 @@ func AddCar(c *fiber.Ctx) error {
 	if err := c.BodyParser(&payload); err != nil {
 		return c.SendStatus(fiber.StatusBadRequest)
 	}
-	err := services.AddNewCar(&payload.Car)
+	err := services.AddCar(&payload.Car)
 	if err != nil {
 		fmt.Printf("ERRORR is %v", err)
 		return c.SendStatus(fiber.StatusInternalServerError)
@@ -24,7 +25,7 @@ func AddCar(c *fiber.Ctx) error {
 }
 func GetCars(c *fiber.Ctx) error {
 	fmt.Printf("Get Cars\n")
-	data, err := services.GetAllCars()
+	data, err := services.GetCars()
 	if err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
 	}

@@ -6,8 +6,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetAllBrands(c *fiber.Ctx) error {
-	res, err := services.GetAllBrands()
+func GetBrands(c *fiber.Ctx) error {
+	res, err := services.GetBrands()
 	if err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
 	}
