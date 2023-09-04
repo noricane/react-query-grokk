@@ -16,6 +16,9 @@ func GetLastCarClickedId(c *fiber.Ctx) error {
 	//Timer just to test loading state of component etc.
 	//time.Sleep(5 * time.Second)
 	if lastCarClickedId == 0 {
+		/* 
+		425 Too Early is more appropriate here, but I
+		will keep teapot for the lols */
 		return c.SendStatus(fiber.StatusTeapot)
 	}
 	res, status, err := services.GetCar(lastCarClickedId)
