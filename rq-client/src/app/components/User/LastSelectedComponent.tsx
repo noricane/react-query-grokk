@@ -40,14 +40,15 @@ const LastSelectedComponent = () => {
         <div className='h-48 w-[25rem] flex flex-col items-center justify-center bg-zinc-100 rounded-lg overflow-hidden'>
 
           <Spinner error={true}/>
-          <div>Failed, trying again</div>
+          <div className='text-red-600 font-semibold'>Failed, trying again</div>
         </div>
     );
     
     else if (isFetching) content = (
       <div className='h-48 w-[25rem] flex bg-zinc-100 flex-col items-center justify-center rounded-lg overflow-hidden'>
         <Spinner error={!true}/>
-        Loading last selected
+        <div className='font-semibold'>Loading last selected</div>
+        
       </div>);
       
     else content = (

@@ -89,7 +89,7 @@ const CarGrid = ({}:{}) => {
 
   /* Handle the states different non-success useQuery states */  
   if (isError) return (
-    <div className='flex-1 w-screen gap-4 flex flex-col justify-center items-center'>
+    <div className='flex-1 h-[60vh] w-screen gap-4 flex flex-col justify-center items-center'>
       <FaRegTimesCircle color="red" size={80}/>
       {/* Here one should check if it's good practice to display error message to user,
           but in this case this is no problem */}
@@ -97,13 +97,13 @@ const CarGrid = ({}:{}) => {
     </div>);
 
   if (failureCount > 0) return (
-    <div className='flex-1 w-screen flex flex-col justify-center items-center'>
+    <div className='flex-1  h-[60vh] w-screen flex flex-col justify-center items-center'>
       <Spinner error={true} />
       <div className="text-red-600 font-semibold text-2xl">Failed, trying again</div>
     </div>);
 
   if (isFetching == true) return (
-    <div className='flex-1 w-screen flex justify-center items-center'>
+    <div className='flex-1  h-[60vh] w-screen flex justify-center items-center'>
       <Spinner error={false}/>
     </div>);
 
