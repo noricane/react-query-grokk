@@ -6,7 +6,7 @@ const NewWhipComponent = () => {
     const [open,setOpen] = React.useState<boolean>(false)
   return (
     <>
-    <div className="col-span-4  flex items-center justify-center w-full">
+    <div className=" col-span-full md:col-span-4  flex items-center justify-center w-full">
         <button onClick={()=>setOpen(true)} className='w-36  active:bg-white active:text-black h-12 transition-transform bg-black rounded-lg text-white font-semibold'>
             Add New Whip
         </button>

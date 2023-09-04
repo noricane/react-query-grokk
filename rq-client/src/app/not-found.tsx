@@ -1,12 +1,12 @@
 import SpinnerPage from "./components/Misc/SpinnerPage"
 import RedirectHandler from "./components/RedirectHandler"
 
-const Error = () => {
-  return (
+const Error = () => (
     <RedirectHandler>
-        <div><SpinnerPage /></div>
+        <SpinnerPage />
     </RedirectHandler>
-  )
-}
+);
+
+
 
 export default Error
