@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"rq-server/routes"
-	"github.com/joho/godotenv"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/joho/godotenv"
+	"os"
+	"rq-server/routes"
 )
+
 func main() {
 	godotenv.Load()
-	
+
 	app := fiber.New()
 	var environment string
 	if env := os.Getenv("ENVIRONMENT"); env != "DEVELOPMENT" {
@@ -23,7 +24,7 @@ func main() {
 	} else {
 		environment = "Development"
 
-		fmt.Println("Allow cors") 
+		fmt.Println("Allow cors")
 		app.Use(cors.New(cors.Config{
 			AllowOrigins: "*",
 			// AllowHeaders:  "Origin, Content-Type, Accept",
@@ -33,7 +34,7 @@ func main() {
 
 	setupRoutes(app)
 
-	fmt.Printf("Launching server in %s mode \n",environment)
+	fmt.Printf("Launching server in %s mode \n", environment)
 	if PORT := os.Getenv("PORT"); PORT != "" {
 		app.Listen(fmt.Sprintf(":%s", PORT))
 	} else {
@@ -52,12 +53,12 @@ func listen(port int, app *fiber.App) {
 
 func setupRoutes(app *fiber.App) {
 	//Random standard route
-	app.Get("/", func(c *fiber.Ctx)error{return c.Status(200).JSON("HELO World 🌍")})
-	
+	app.Get("/", func(c *fiber.Ctx) error { return c.Status(200).JSON("HELO World 🌍") })
+
 	//Car routes
-	app.Post("/cars/new",routes.AddCar)
-	app.Get("/cars",routes.GetCars)
+	app.Post("/cars/new", routes.AddCar)
+	app.Get("/cars", routes.GetCars)
 	//User routes
-	app.Get("/user/get_last_clicked",routes.GetLastCarClickedId)
-	app.Post("/user/set_last_clicked",routes.SetLastCarClickedId)
+	app.Get("/user/get_last_clicked", routes.GetLastCarClickedId)
+	app.Post("/user/set_last_clicked", routes.SetLastCarClickedId)
 }

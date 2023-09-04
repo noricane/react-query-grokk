@@ -1,6 +1,5 @@
 package models
 
-
 type Car struct {
 	Id           int    `json:"id"`
 	Manufacturer string `json:"manufacturer"`
