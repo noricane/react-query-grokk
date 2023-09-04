@@ -1,7 +1,8 @@
-package server
+package routes
 
 import (
 	"fmt"
+	"rq-server/services"
 	//"time"
 	"github.com/gofiber/fiber/v2"
 )
@@ -14,7 +15,7 @@ func GetLastCarClickedId(c *fiber.Ctx) error {
 	fmt.Printf("Get Last Clicked\n")
 	//Timer just to test loading state of component etc.
 	//time.Sleep(5 * time.Second)
-	res,status,err := GetCar(lastCarClickedId)
+	res,status,err := services.GetCar(lastCarClickedId)
 	if err != nil {
 		fmt.Printf("ERROR HERE\n")
 		return c.Status(status).JSON(err.Error())

@@ -1,33 +1,38 @@
-package server
+package services
 
 import (
 	"encoding/json"
 	"fmt"
 	"io/fs"
-
+	"rq-server/models"
 	"log"
 	"os"
 )
 
+	// The data struct for the decoded data
+// Notice that all fields must be exportable!
+type Data struct {
+	Data []models.Car
+}
 
-
-func GetCar(id int)(*Car,int,error){
+func GetCar(id int)(*models.Car,int,error){
 	cars,err := GetAllCars()
 	if err != nil {
-		return &Car{},500 ,err
+		return &models.Car{},500 ,err
 	}
 	for _,c := range *cars {
 		if c.Id == id {
 			return &c,200,nil
 		}
 	}
-	return &Car{},404,fmt.Errorf("Could not find a car with Id: %d", id)
+	return &models.Car{},404,fmt.Errorf("Could not find a car with Id: %d", id)
 }
-func AddNewCar(c *Car)(error){
+func AddNewCar(c *models.Car)(error){
 	content, err := os.ReadFile("data/cars.json")
 	if err != nil {
 		log.Fatal("Error when opening file: ", err)
 	}
+
 	var payload Data
 	err = json.Unmarshal(content, &payload)
 	if err != nil {
@@ -43,7 +48,7 @@ func AddNewCar(c *Car)(error){
 	}
 	return nil
 }
-func GetAllCars()(*[]Car,error){
+func GetAllCars()(*[]models.Car,error){
 	content, err := os.ReadFile("data/cars.json")
 	if err != nil {
 		log.Fatal("Error when opening file: ", err)

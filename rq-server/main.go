@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
-	"rq-server/server"
+	"rq-server/routes"
 	"github.com/joho/godotenv"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -55,9 +55,9 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/", func(c *fiber.Ctx)error{return c.Status(200).JSON("HELO World 🌍")})
 	
 	//Car routes
-	app.Post("/cars/new",server.AddCar)
-	app.Get("/cars",server.GetCars)
+	app.Post("/cars/new",routes.AddCar)
+	app.Get("/cars",routes.GetCars)
 	//User routes
-	app.Get("/user/get_last_clicked",server.GetLastCarClickedId)
-	app.Post("/user/set_last_clicked",server.SetLastCarClickedId)
+	app.Get("/user/get_last_clicked",routes.GetLastCarClickedId)
+	app.Post("/user/set_last_clicked",routes.SetLastCarClickedId)
 }
