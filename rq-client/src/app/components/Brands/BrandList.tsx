@@ -26,9 +26,9 @@ const BrandList = () => {
         {brands.map(e => <li key={e}>{e}</li>)}
       </ul>
       <div className='mt-4 text-xl font-semibold  items-center flex gap-8'>
-        <button className={`${buttonStyle} ${page != 1 ? buttonReactiveStyle : buttonDisabledStyle }`}>Previous</button>
+        <button  className={`${buttonStyle} ${page != 1 ? buttonReactiveStyle : buttonDisabledStyle }`}>Previous</button>
         <span className='w-8 text-center'>{page}</span>
-        <button className={`${buttonStyle} ${hasNext ? buttonReactiveStyle : buttonDisabledStyle } `}>Next</button>
+        <button  className={`${buttonStyle} ${hasNext ? buttonReactiveStyle : buttonDisabledStyle } `}>Next</button>
       </div>
     </div>
   )

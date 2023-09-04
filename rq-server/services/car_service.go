@@ -15,6 +15,13 @@ type Data struct {
 	Data []models.Car
 }
 
+func ValidCarId(id int) (bool) {
+	_,_,err := GetCar(id)
+	if err != nil {
+		return false
+	}
+	return true
+}
 func GetCar(id int) (*models.Car, int, error) {
 	cars, err := GetCars()
 	if err != nil {
@@ -27,6 +34,7 @@ func GetCar(id int) (*models.Car, int, error) {
 	}
 	return &models.Car{}, 404, fmt.Errorf("Could not find a car with Id: %d", id)
 }
+
 func AddCar(c *models.Car) error {
 	content, err := os.ReadFile("data/cars.json")
 	if err != nil {

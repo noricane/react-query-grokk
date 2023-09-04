@@ -15,6 +15,9 @@ func GetLastCarClickedId(c *fiber.Ctx) error {
 	fmt.Printf("Get Last Clicked\n")
 	//Timer just to test loading state of component etc.
 	//time.Sleep(5 * time.Second)
+	if lastCarClickedId == 0 {
+		return c.SendStatus(fiber.StatusTeapot)
+	}
 	res, status, err := services.GetCar(lastCarClickedId)
 	if err != nil {
 		fmt.Printf("ERROR HERE\n")
@@ -29,6 +32,9 @@ func SetLastCarClickedId(c *fiber.Ctx) error {
 		CarId int `json:"car_id"`
 	}{}
 	if err := c.BodyParser(&payload); err != nil {
+		return c.SendStatus(fiber.StatusBadRequest)
+	}
+	if !services.ValidCarId(payload.CarId) {
 		return c.SendStatus(fiber.StatusBadRequest)
 	}
 	lastCarClickedId = payload.CarId
