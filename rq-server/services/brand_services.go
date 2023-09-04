@@ -29,21 +29,18 @@ func GetBrandsPaginated(limit int, page int) (PaginatedResponse, error) {
 		return PaginatedResponse{}, err
 	}
 	var paginatedList *[]string
-	if len(*payload) > limit*(page-1) { //vettted
-		from :=(limit*(page-1))//vetted?
-		to :=limit*page
-		fmt.Printf("From: %d To: %d, lenlist:%d\n",from,to,len(*payload))
-		if (to > len(*payload)){
+	if len(*payload) > limit*(page-1) {
+		from,to :=(limit*(page-1)),limit*page
+
+		if to > len(*payload){
 			temp := (*payload)[from:]
 			paginatedList = &temp;	
 		}else{
 			temp := (*payload)[from:to]
 			paginatedList = &temp;	
 		}
-		fmt.Printf("to:%d len:%d\n",to+1 , len(*payload))
-		if (to < len(*payload)) {
-			hasNext = true
-		} 
+		
+		if to < len(*payload) { hasNext = true } 
 	}
 
 	return PaginatedResponse{Brands: paginatedList, HasNext: hasNext}, nil
