@@ -18,7 +18,7 @@ func GetBrandsPaginated(limit int, page int) (PaginatedResponse, error) {
 	if err != nil {
 		log.Fatal("Error when opening file: ", err)
 	}
-	fmt.Printf("content is %v", content)
+	fmt.Printf("content is %v", string(content))
 	// Now let's unmarshall the data into `payload`
 
 	var hasNext bool
@@ -29,14 +29,21 @@ func GetBrandsPaginated(limit int, page int) (PaginatedResponse, error) {
 		return PaginatedResponse{}, err
 	}
 	var paginatedList *[]string
-	if len(*payload) > limit*(page-1) {
-		from :=(limit-1*page)
+	if len(*payload) > limit*(page-1) { //vettted
+		from :=(limit*(page-1))//vetted?
 		to :=limit*page
-		temp := (*paginatedList)[from:to]
-		paginatedList = &temp;	
-		if (to+1 < len(*payload)) {
-			hasNext = true
+		fmt.Printf("From: %d To: %d, lenlist:%d\n",from,to,len(*payload))
+		if (to > len(*payload)){
+			temp := (*payload)[from:]
+			paginatedList = &temp;	
+		}else{
+			temp := (*payload)[from:to]
+			paginatedList = &temp;	
 		}
+		fmt.Printf("to:%d len:%d\n",to+1 , len(*payload))
+		if (to < len(*payload)) {
+			hasNext = true
+		} 
 	}
 
 	return PaginatedResponse{Brands: paginatedList, HasNext: hasNext}, nil
