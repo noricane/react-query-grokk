@@ -14,7 +14,9 @@ func main() {
 	godotenv.Load()
 
 	app := fiber.New()
+
 	var environment string
+
 	if env := os.Getenv("ENVIRONMENT"); env != "DEVELOPMENT" {
 		environment = "Production"
 		fmt.Print("Initializing cors\n")
@@ -24,7 +26,6 @@ func main() {
 		}))
 	} else {
 		environment = "Development"
-
 		fmt.Println("Allow cors")
 		app.Use(cors.New(cors.Config{
 			AllowOrigins: "*",
@@ -43,15 +44,6 @@ func main() {
 	}
 }
 
-func listen(port int, app *fiber.App) {
-	fmt.Printf("Connecting to port %d\n", port)
-	err := app.Listen(fmt.Sprintf(":%d", port))
-	fmt.Printf("Failed to connect %v\n", err)
-	if err != nil {
-		listen(port+1, app)
-	}
-}
-
 func setupRoutes(app *fiber.App) {
 	//Random standard route
 	app.Get("/", func(c *fiber.Ctx) error { return c.Status(200).JSON("HELO World 🌍") })
@@ -66,4 +58,13 @@ func setupRoutes(app *fiber.App) {
 	//User routes
 	app.Get("/user/get_last_clicked", routes.GetLastCarClickedId)
 	app.Post("/user/set_last_clicked", routes.SetLastCarClickedId)
+}
+
+func listen(port int, app *fiber.App) {
+	fmt.Printf("Connecting to port %d\n", port)
+	err := app.Listen(fmt.Sprintf(":%d", port))
+	fmt.Printf("Failed to connect %v\n", err)
+	if err != nil {
+		listen(port+1, app)
+	}
 }

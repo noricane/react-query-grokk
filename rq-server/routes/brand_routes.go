@@ -12,7 +12,7 @@ func GetBrandsPaginated(c *fiber.Ctx) error {
 	if page == 0 || lim == 0 {
 		return c.SendStatus(fiber.StatusBadRequest)
 	}
-	res, err := services.GetBrandsPaginated(lim,page)
+	res, err := services.GetBrandsPaginated(lim, page)
 	if err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
 	}

@@ -12,7 +12,7 @@ export async function getBrands():Promise<string[]>{
 }
 export async function getPaginatedBrands(limit:number,page:number):Promise<PaginatedBrands>{
     try {
-        const res = await axios.post(`${url}/brands_paginated?limit=${limit}&page=${page}`)
+        const res = await axios.get(`${url}/brands_paginated?limit=${limit}&page=${page}`)
         return res.data
     } catch (error) {
         throw error as AxiosError

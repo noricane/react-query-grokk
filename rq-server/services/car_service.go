@@ -15,8 +15,8 @@ type Data struct {
 	Data []models.Car
 }
 
-func ValidCarId(id int) (bool) {
-	_,_,err := GetCar(id)
+func ValidCarId(id int) bool {
+	_, _, err := GetCar(id)
 	if err != nil {
 		return false
 	}
@@ -50,6 +50,9 @@ func AddCar(c *models.Car) error {
 	c.Id = len(payload.Data) + 1
 	payload.Data = append(payload.Data, *c)
 	jsonData, err := json.Marshal(payload)
+	if err != nil {
+		return err
+	}
 	err = os.WriteFile("data/cars.json", jsonData, fs.FileMode(os.O_RDWR))
 	if err != nil {
 		return err
