@@ -7,6 +7,10 @@ export type Car = {
   description:string
   wiki:string
 }
+export type PaginatedBrands = {
+  brands:string[],
+  has_next:boolean
+}
   
 
 export enum SlideButtons {

@@ -61,8 +61,5 @@ func GetCars() (*[]models.Car, error) {
 		log.Fatal("Error during Unmarshal(): ", err)
 		return nil, err
 	}
-	if err != nil {
-		return nil, err
-	}
 	return &payload.Data, nil
 }

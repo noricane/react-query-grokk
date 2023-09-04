@@ -2,17 +2,54 @@ package services
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"log"
 	"os"
 )
 
-func GetBrands() (*[]string, error) {
+type PaginatedResponse struct {
+	Brands  *[]string `json:"brands"`
+	HasNext bool      `json:"has_next"`
+}
+
+func GetBrandsPaginated(limit int, page int) (PaginatedResponse, error) {
 	content, err := os.ReadFile("data/brands.json")
 	if err != nil {
 		log.Fatal("Error when opening file: ", err)
 	}
+	fmt.Printf("content is %v", content)
+	// Now let's unmarshall the data into `payload`
 
+	var hasNext bool
+	payload,err := getBrandsFromStore()
+
+	if err != nil {
+		log.Fatal("Error during Unmarshal(): ", err)
+		return PaginatedResponse{}, err
+	}
+	var paginatedList *[]string
+	if len(*payload) > limit*(page-1) {
+		from :=(limit-1*page)
+		to :=limit*page
+		temp := (*paginatedList)[from:to]
+		paginatedList = &temp;	
+		if (to+1 < len(*payload)) {
+			hasNext = true
+		}
+	}
+
+	return PaginatedResponse{Brands: paginatedList, HasNext: hasNext}, nil
+}
+func GetBrands() (*[]string, error) {
+	return getBrandsFromStore()
+}
+
+func getBrandsFromStore()(*[]string, error){
+	content, err := os.ReadFile("data/brands.json")
+	if err != nil {
+		log.Fatal("Error when opening file: ", err)
+	}
 	// Now let's unmarshall the data into `payload`
 	var payload []string
 	err = json.Unmarshal(content, &payload)
@@ -20,8 +57,5 @@ func GetBrands() (*[]string, error) {
 		log.Fatal("Error during Unmarshal(): ", err)
 		return nil, err
 	}
-	if err != nil {
-		return nil, err
-	}
-	return &payload, nil
+	return &payload,nil
 }

@@ -57,6 +57,7 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/", func(c *fiber.Ctx) error { return c.Status(200).JSON("HELO World 🌍") })
 
 	//Car routes
+	app.Get("/brands_paginated", routes.GetBrandsPaginated)
 	app.Get("/brands", routes.GetBrands)
 
 	//Car routes
