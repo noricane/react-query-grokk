@@ -2,7 +2,7 @@
 import CarGrid from "./components/Cars/CarGrid";
 import { QueryClient, QueryClientProvider, } from "@tanstack/react-query";
 import Header from "./components/Car-misc/Header";
-import BrandList from "./components/Brands/Brandlist";
+import BrandList from "./components/Brands/BrandList";
 
 
 export default function Home() {
