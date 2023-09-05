@@ -1,4 +1,4 @@
-
+import { getPaginatedBrands } from '@/utils/api';
 import { PaginatedBrands } from '@/utils/types';
 import { paginatedBrandsQuery } from '@/utils/userQuery_consts';
 import { useQuery } from '@tanstack/react-query';
@@ -6,8 +6,6 @@ import { AxiosError } from 'axios';
 import React from 'react'
 import Spinner from '../Misc/Spinner';
 import { FaRegTimesCircle } from 'react-icons/fa';
-import { url } from '@/utils/global';
-import { getPaginatedBrands } from '@/utils/api';
 
 const buttonStyle = " h-12 w-36 rounded-md "
 const buttonReactiveStyle = " bg-black text-white hover:scale-105 active:bg-white active:text-black transition-transform "
@@ -15,59 +13,72 @@ const buttonDisabledStyle = " bg-zinc-300 cursor-default "
 
 const notSuccessContainerStyle = " px-4 text-xl h-full w-96 py-6 px-4 text-3xl font-semibold bg-zinc-100 rounded-lg overflow-hidden flex flex-col justify-center items-center "
 const limit = 15;
-export const useBrands = (page:number)=>useQuery<PaginatedBrands,AxiosError>({
-  queryKey: [...paginatedBrandsQuery, page ],
-  queryFn: () =>getPaginatedBrands(limit,page),
-  keepPreviousData : true
-})
+
 const BrandList = () => {
+  const [page,setPage] = React.useState<number>(1)
 
-
-  const getPaginatedBrands = (page = 1) => fetch(`${url}/brands_paginated?limit=${limit}&page=${page}`).then((res) => res.json())
-  
-  const [page, setPage] = React.useState(1)
-
-  const {
-    isLoading,
+  const { 
+    data:{ brands, has_next: hasNext } , 
     isError,
-    error,
-    data,
-    isFetching,
-    isPreviousData,
-  } = useBrands(page)
+    isFetching, 
+    failureCount,
+    isPreviousData
+  } = 
+  useQuery<PaginatedBrands,AxiosError>(
+    [...paginatedBrandsQuery, page],
+    () => getPaginatedBrands(limit,page),
+    { 
+      keepPreviousData:true,
+      refetchOnWindowFocus:false, 
+      initialData:{brands:[],has_next:false},
+    }
+  );
 
-  return (
-    <div className='bg-red-200 col-span-full'>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : isError ? (
-        <div>Error: {error.message}</div>
-      ) : (
-        <div>
-          {data.brands.map(project => (
-            <p key={project}>{project}</p>
-          ))}
+  let content;
+  
+  if(isError) content = (
+    <div className={`text-red-600 ${notSuccessContainerStyle}`}>
+      <FaRegTimesCircle size={70}/>
+      <span >Couldn&apos;t get brands, try again later</span>
+    </div>);
+
+  else if(failureCount > 0) content = (
+      <div className={`text-red-600 ${notSuccessContainerStyle}`}>
+        <Spinner error={true}/>
+        <span >Failed, trying again...</span>
+      </div>);
+  
+  else if(isFetching) content = (
+      <div className={`${notSuccessContainerStyle}`}>
+        <Spinner error={false}/>
+        Loading...
+      </div>);
+  else content = (
+      <>
+        <ul className='w-96 utsm:w-56 mx-auto h-[36rem]  py-6 px-4 text-3xl font-semibold bg-zinc-100 rounded-lg overflow-y-scroll'>
+          {brands.map(e => <li key={e}>{e}</li>)}
+        </ul>
+        <div className='mt-4 text-xl utsm:flex-col font-semibold  items-center flex gap-8'>
+          <button  
+            disabled={!(page > 1)|| isFetching} 
+            className={`${buttonStyle} ${page != 1 ? buttonReactiveStyle : buttonDisabledStyle }`}
+            onClick={()=>{setPage(prev => prev-1)}}
+            >Previous</button>
+          <span className='w-8 text-center'>{page}</span>
+          <button  
+            disabled={!hasNext || isFetching} 
+            className={`${buttonStyle} ${hasNext ? buttonReactiveStyle : buttonDisabledStyle } `}
+            onClick={()=>{
+               setPage(prev => prev+1)
+              }}
+            >Next</button>
         </div>
-      )}
-      <span>Current Page: {page + 1}</span>
-      <button
-        onClick={() => setPage(old => Math.max(old - 1, 1))}
-        disabled={page === 1}
-      >
-        Previous Page
-      </button>{' '}
-      <button
-        onClick={() => {
-          if (!isPreviousData && data?.has_next) {
-            setPage(old => old + 1)
-          }
-        }}
-        // Disable the Next Page button until we know a next page is available
-        disabled={isPreviousData || !data?.has_next}
-      >
-        Next Page
-      </button>
-      {isFetching ? <span> Loading...</span> : null}{' '}
+      </>);
+  
+  return (
+    <div className='h-[48rem] mt-12  col-span-full flex flex-col items-center px-4 '>
+      <h3 className='text-3xl font-semibold mb-4'>Brands</h3>
+      {content}
     </div>
   )
 }
