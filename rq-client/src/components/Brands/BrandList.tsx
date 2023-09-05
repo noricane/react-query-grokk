@@ -47,7 +47,7 @@ const BrandList = () => {
           {data.brands.map(project => (
             <p key={project}>{project}</p>
           ))}
-        </div>
+        </div> 
       )}
       <span>Current Page: {page + 1}</span>
       <button
