@@ -1,8 +1,8 @@
 "use client"
-import CarGrid from "./components/Cars/CarGrid";
+import CarGrid from "../components/Cars/CarGrid";
 import { QueryClient, QueryClientProvider, } from "@tanstack/react-query";
-import Header from "./components/Car-misc/Header";
-import BrandList from "./components/Brands/BrandList";
+import Header from "../components/Car-misc/Header";
+import BrandList from "../components/Brands/BrandList";
 
 
 export default function Home() {

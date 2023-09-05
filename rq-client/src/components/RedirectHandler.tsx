@@ -5,7 +5,7 @@ import React from "react";
 const RedirectHandler = ({ children }: { children: React.ReactNode }) => {
   const r = useRouter();
   const p = usePathname();
-  if (p != "/") r.replace("/");
+  if (p != "/" && !p.startsWith("/test")) r.replace("/");
   return <>{children}</>;
 };
 

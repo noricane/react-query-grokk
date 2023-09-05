@@ -1,5 +1,5 @@
-import SpinnerPage from "./components/Misc/SpinnerPage"
-import RedirectHandler from "./components/RedirectHandler"
+import SpinnerPage from "../components/Misc/SpinnerPage"
+import RedirectHandler from "../components/RedirectHandler"
 
 const Error = () => (
     <RedirectHandler>
