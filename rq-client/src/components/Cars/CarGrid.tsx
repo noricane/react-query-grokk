@@ -37,7 +37,20 @@ const CarGrid = ({}:{}) => {
     }
   })
 
-  const { data: cars, isError,error,isFetching, failureCount } = useQuery<Car[],AxiosError>({ refetchOnWindowFocus:true,queryKey:carsQuery, queryFn: getCars, initialData: [] });
+  const { 
+    data: cars, 
+    isError,
+    error,
+    isFetching, 
+    failureCount
+   } = useQuery<Car[],AxiosError>(
+    { 
+      refetchOnWindowFocus:true,
+      queryKey:carsQuery, 
+      queryFn: getCars, 
+      keepPreviousData:true,
+      initialData: [] 
+    });
   
   
   const arrowKeysListener = (e:KeyboardEvent) => {

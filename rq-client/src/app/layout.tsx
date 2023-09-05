@@ -1,3 +1,4 @@
+import Nav from "@/components/Layout/Nav";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -17,7 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="bg-zinc-200">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Nav/>
+        {children}
+      </body>
     </html>
   );
 }

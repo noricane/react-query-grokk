@@ -7,6 +7,7 @@ import React from 'react'
 import Spinner from '../Misc/Spinner';
 import { FaRegTimesCircle } from 'react-icons/fa';
 import { url } from '@/utils/global';
+import { getPaginatedBrands } from '@/utils/api';
 
 const buttonStyle = " h-12 w-36 rounded-md "
 const buttonReactiveStyle = " bg-black text-white hover:scale-105 active:bg-white active:text-black transition-transform "
@@ -14,7 +15,11 @@ const buttonDisabledStyle = " bg-zinc-300 cursor-default "
 
 const notSuccessContainerStyle = " px-4 text-xl h-full w-96 py-6 px-4 text-3xl font-semibold bg-zinc-100 rounded-lg overflow-hidden flex flex-col justify-center items-center "
 const limit = 15;
-
+export const useBrands = (page:number)=>useQuery<PaginatedBrands,AxiosError>({
+  queryKey: [...paginatedBrandsQuery, page ],
+  queryFn: () =>getPaginatedBrands(limit,page),
+  keepPreviousData : true
+})
 const BrandList = () => {
 
 
@@ -29,11 +34,7 @@ const BrandList = () => {
     data,
     isFetching,
     isPreviousData,
-  } = useQuery<PaginatedBrands,AxiosError>({
-    queryKey: [...paginatedBrandsQuery, { page }],
-    queryFn: () =>getPaginatedBrands(page),
-    keepPreviousData : true
-  })
+  } = useBrands(page)
 
   return (
     <div className='bg-red-200 col-span-full'>
