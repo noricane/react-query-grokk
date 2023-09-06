@@ -6,11 +6,9 @@ const ModalPanel = (
     {loading,children,containerStyle,buttonText,name,isOpened,setIsOpened}:
     {loading?:boolean,children:React.ReactNode,buttonText?:any,containerStyle:string,name:string,isOpened:boolean,setIsOpened:Function}
     ) => {
-   
 
     const ref = useRef<HTMLDialogElement>(null)
     const innerDiv = useRef<HTMLDivElement>(null)
-
     
    const close = () => {
         if(!isOpened) return;
@@ -29,8 +27,6 @@ const ModalPanel = (
             window.removeEventListener("mousedown", close);
         };
     }, [close,stopProp]);
-   
-
 
   return (
     <>
