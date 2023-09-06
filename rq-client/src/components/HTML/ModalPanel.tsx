@@ -11,7 +11,6 @@ const ModalPanel = (
     const ref = useRef<HTMLDialogElement>(null)
     const innerDiv = useRef<HTMLDivElement>(null)
 
-   
     
    const close = () => {
         if(!isOpened) return;
