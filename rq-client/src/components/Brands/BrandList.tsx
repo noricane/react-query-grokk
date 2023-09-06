@@ -2,7 +2,7 @@
 import { getPaginatedBrands } from '@/utils/api';
 import { PaginatedBrands } from '@/utils/types';
 import { paginatedBrandsQuery } from '@/utils/userQuery_consts';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery,useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import React from 'react'
 import Spinner from '../Misc/Spinner';
@@ -16,6 +16,8 @@ const notSuccessContainerStyle = " px-4 text-xl h-full w-96 py-6 px-4 text-3xl f
 const limit = 15;
 
 const BrandList = () => {
+  const queryClient = useQueryClient()
+
   const [page,setPage] = React.useState<number>(1)
 
   const { 
@@ -26,15 +28,25 @@ const BrandList = () => {
     isPreviousData
   } = 
   useQuery<PaginatedBrands,AxiosError>(
-    [...paginatedBrandsQuery, page],
-    () => getPaginatedBrands(limit,page),
     { 
-      keepPreviousData:true,
-      refetchOnWindowFocus:false, 
+      queryKey:  [...paginatedBrandsQuery, page],
+      queryFn:  () => getPaginatedBrands(limit,page),
+      keepPreviousData: true,
+      refetchOnWindowFocus:false,
       initialData:{brands:[],has_next:false},
     }
   );
 
+  React.useEffect(() => {
+    if (!isPreviousData && hasNext) {
+      queryClient.prefetchQuery({
+        queryKey:[...paginatedBrandsQuery, page+1],
+        queryFn: () => getPaginatedBrands(limit,page + 1),
+        staleTime:Infinity
+      })
+    }
+  }, [brands,hasNext, isPreviousData, page, queryClient])
+  
   let content;
   
   if(isError) content = (

@@ -53,10 +53,9 @@ const CarGrid = ({}:{}) => {
       queryKey:carsQuery, 
       queryFn: getCars, 
       initialData: [] ,
-      keepPreviousData: true,
       refetchOnWindowFocus:false,
       refetchOnMount:true,
-      staleTime:Infinity,
+
     });
   
   
