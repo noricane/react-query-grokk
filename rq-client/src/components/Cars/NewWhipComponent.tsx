@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import ModalPanel from '../HTML/ModalPanel'
 import NewWhipForm from './NewWhipForm'

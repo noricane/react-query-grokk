@@ -36,7 +36,12 @@ const CarGrid = ({}:{}) => {
       queryClient.invalidateQueries(lastSelectedQuery)
     }
   })
-
+  const [data, setData] = React.useState(0)
+  useEffect(()=>{
+    if(data > 0) return
+    setData(1)
+    queryClient.invalidateQueries(carsQuery)
+  },[])
   const { 
     data: cars, 
     isError,
@@ -45,11 +50,13 @@ const CarGrid = ({}:{}) => {
     failureCount
    } = useQuery<Car[],AxiosError>(
     { 
-      refetchOnWindowFocus:true,
       queryKey:carsQuery, 
       queryFn: getCars, 
-      keepPreviousData:true,
-      initialData: [] 
+      initialData: [] ,
+      keepPreviousData: true,
+      refetchOnWindowFocus:false,
+      refetchOnMount:true,
+      staleTime:Infinity,
     });
   
   

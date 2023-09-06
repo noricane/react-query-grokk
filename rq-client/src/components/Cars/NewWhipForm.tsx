@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import Input from '../HTML/Input';
 import IntInput from '../HTML/IntInput';

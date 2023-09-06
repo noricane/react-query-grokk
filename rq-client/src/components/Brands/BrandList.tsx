@@ -1,3 +1,4 @@
+"use client"
 import { getPaginatedBrands } from '@/utils/api';
 import { PaginatedBrands } from '@/utils/types';
 import { paginatedBrandsQuery } from '@/utils/userQuery_consts';

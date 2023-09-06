@@ -1,3 +1,5 @@
+"use client"
+
 import { DefinedUseQueryResult, UseQueryOptions } from '@tanstack/react-query'
 import React from 'react'
 import { FaRegTimesCircle } from 'react-icons/fa';
