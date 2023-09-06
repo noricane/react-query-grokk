@@ -1,5 +1,4 @@
 "use client"
-
 import React from 'react'
 import Input from '../HTML/Input';
 import IntInput from '../HTML/IntInput';
@@ -7,7 +6,6 @@ import { Car } from '@/utils/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addCar } from '@/utils/api';
 import { carsQuery } from '@/utils/userQuery_consts';
-
 
 const NewWhipForm = () => {
     const [manufacturer,setManufacturer] = React.useState<string>("")
