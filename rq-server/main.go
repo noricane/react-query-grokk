@@ -33,7 +33,6 @@ func main() {
 		}))
 
 	}
-
 	setupRoutes(app)
 
 	fmt.Printf("Launching server in %s mode \n", environment)
