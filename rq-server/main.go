@@ -34,7 +34,7 @@ func main() {
 
 	}
 	setupRoutes(app)
-
+ 
 	fmt.Printf("Launching server in %s mode \n", environment)
 	if PORT := os.Getenv("PORT"); PORT != "" {
 		app.Listen(fmt.Sprintf(":%s", PORT))
