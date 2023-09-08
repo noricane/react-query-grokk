@@ -42,7 +42,7 @@ const BrandList = () => {
         <div>Loading...</div>
       ) : isError ? (
         <div>Error: {error.message}</div>
-      ) : (
+      ) : ( 
         <div>
           {data.brands.map(project => (
             <p key={project}>{project}</p>
