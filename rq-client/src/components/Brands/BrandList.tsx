@@ -7,6 +7,7 @@ import { AxiosError } from 'axios';
 import React from 'react'
 import Spinner from '../Misc/Spinner';
 import { FaRegTimesCircle } from 'react-icons/fa';
+import { useGetPaginatedBrandsQuery } from '@/store/brandSlice';
 
 const buttonStyle = " h-12 w-36 rounded-md "
 const buttonReactiveStyle = " bg-black text-white hover:scale-105 active:bg-white active:text-black transition-transform "
@@ -19,8 +20,11 @@ const BrandList = () => {
   const queryClient = useQueryClient()
 
   const [page,setPage] = React.useState<number>(1)
+  const { data, isLoading, isFetching,isError,error } = useGetPaginatedBrandsQuery(page)
+  const {brands, has_next:hasNext} = !isLoading && data != null ? data  : {brands:[],has_next:false}
 
-  const { 
+    
+  /* const { 
     data:{ brands, has_next: hasNext } , 
     isError,
     isFetching, 
@@ -35,8 +39,8 @@ const BrandList = () => {
       refetchOnWindowFocus:false,
       initialData:{brands:[],has_next:false},
     }
-  );
-
+  ); */
+/* 
   React.useEffect(() => {
     if (!isPreviousData && hasNext) {
       queryClient.prefetchQuery({
@@ -46,7 +50,7 @@ const BrandList = () => {
       })
     }
   }, [brands,hasNext, isPreviousData, page, queryClient])
-  
+   */
   let content;
   
   if(isError) content = (
@@ -54,12 +58,12 @@ const BrandList = () => {
       <FaRegTimesCircle size={70}/>
       <span >Couldn&apos;t get brands, try again later</span>
     </div>);
-
+/* 
   else if(failureCount > 0) content = (
       <div className={`text-red-600 ${notSuccessContainerStyle}`}>
         <Spinner error={true}/>
         <span >Failed, trying again...</span>
-      </div>);
+      </div>); */
   
   else if(isFetching) content = (
       <div className={`${notSuccessContainerStyle}`}>
