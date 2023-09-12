@@ -12,7 +12,7 @@ const NewWhipComponent = () => {
             Add New Whip
         </button>
           
-    </div>
+    </div> 
     <ModalPanel containerStyle={''} name={''} isOpened={open} setIsOpened={()=>{setOpen(false)}}>
         <NewWhipForm/>
     </ModalPanel>

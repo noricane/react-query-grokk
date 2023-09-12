@@ -13,6 +13,8 @@ import LastSelectedComponent from "../User/LastSelectedComponent";
 import { AxiosError } from "axios";
 import { carsQuery, lastSelectedQuery } from "@/utils/userQuery_consts";
 import NewWhipComponent from "./NewWhipComponent";
+import {useGetAllQuery} from "@/store/carsSlice";
+import { useSetSelectedCarMutation } from "@/store/selectedCarSlice";
 
 
 
@@ -29,20 +31,13 @@ const CarGrid = ({}:{}) => {
   //The searched list should of course be a filtered list of the useQuary state list.
   const [displayedCars,setDisplayedCars] = React.useState<Car[]>([])
 
-  
-  const queryClient = useQueryClient()
-  const setLastSelectedMutation = useMutation(setLastSelected,{
-    onSuccess:()=>{
-      queryClient.invalidateQueries(lastSelectedQuery)
-    }
-  })
-  const [data, setData] = React.useState(0)
-  useEffect(()=>{
-    if(data > 0) return
-    setData(1)
-    queryClient.invalidateQueries(carsQuery)
-  },[])
-  const { 
+
+  const [setLastSelectedRedux,{ isLoading:isLoadingRedux, isError:isErrorRedux, error:apiError }] = useSetSelectedCarMutation() 
+
+
+  const {data:cars,isLoading,isError,isFetching,error} = useGetAllQuery()
+
+/*   const { 
     data: cars, 
     isError,
     error,
@@ -56,7 +51,7 @@ const CarGrid = ({}:{}) => {
       refetchOnWindowFocus:false,
       refetchOnMount:true,
 
-    });
+    }); */
   
   
   const arrowKeysListener = (e:KeyboardEvent) => {
@@ -95,11 +90,11 @@ const CarGrid = ({}:{}) => {
   },[selectedIndex])
 
 
-  useEffect(()=>{ setDisplayedCars([...cars]) },[cars])
+  useEffect(()=>{ if(!cars)return; setDisplayedCars([...cars]) },[cars])
 
    /* If refetch is empty and modal is openeded, we must close it. */
   useEffect(()=>{
-    if(cars.length > 0) return
+    if(cars && cars.length > 0) return
     setIsOpened(false)
     setSelectedIndex(-1)
     setSelected(null)
@@ -115,7 +110,7 @@ const CarGrid = ({}:{}) => {
       <div className="text-red-600 font-semibold text-center text-2xl">{(error as unknown&{message:string}).message} <br /> Try again later</div>
     </div>);
 
-  if (failureCount > 0) return (
+  if (false) return (
     <div className='flex-1  h-[60vh] w-screen flex flex-col justify-center items-center'>
       <Spinner error={true} />
       <div className="text-red-600 font-semibold text-2xl">Failed, trying again</div>
@@ -131,7 +126,7 @@ const CarGrid = ({}:{}) => {
     <>
       
       {displayedCars.map((e:Car,idx) => (
-          <CarComponent selectCar={() => setLastSelectedMutation.mutate(e.id)} onClick={() => { setSelectedIndex(idx); setIsOpened(true) }} key={e.id} {...e}/>
+          <CarComponent selectCar={() => setLastSelectedRedux(e.id)} onClick={() => { setSelectedIndex(idx); setIsOpened(true) }} key={e.id} {...e}/>
       ))}
       {isOpened && selected != null && 
           <ModalPanel containerStyle={"md:min-h-[36rem] md:w-[44rem] items-center"} name={"carSelectedModal"} isOpened={isOpened} setIsOpened={setIsOpened}>

@@ -6,6 +6,8 @@ import { Car } from '@/utils/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addCar } from '@/utils/api';
 import { carsQuery } from '@/utils/userQuery_consts';
+import {useAddCarMutation} from '@/store/carsSlice';
+import Spinner from '../Misc/Spinner';
 
 const NewWhipForm = () => {
     const [manufacturer,setManufacturer] = React.useState<string>("")
@@ -17,12 +19,14 @@ const NewWhipForm = () => {
 
     const [error,setError] = React.useState<[error:boolean,message:string]>([false,""])
 
-    const queryClient = useQueryClient()
+    const [addCar, { isLoading, isError, error:apiError }] = useAddCarMutation()
+    
+   /*  const queryClient = useQueryClient()
     const setLastSelectedMutation = useMutation(addCar,{
       onSuccess:()=>{
         queryClient.invalidateQueries(carsQuery)
       }
-    })
+    }) */
     
     const stringList = [manufacturer,model,img,description,wiki]
     const validate  = price > 0 && stringList.filter(e => e === "").length === 0;
@@ -46,11 +50,13 @@ const NewWhipForm = () => {
           description: description,
           wiki: wiki,
         }
-        setLastSelectedMutation.mutate(c)
+        addCar(c)
+
     }
   return (
-    <div className='grid grid-cols-10 w-[48rem] h-[36rem] '>
-        <div className=' col-span-5'>
+    <div className='grid grid-cols-10 w-[56rem] h-[36rem] '>
+        {!isLoading ? <>
+          <div className=' col-span-5'>
           {img && <img draggable={false} className='rounded-md select-none object-center w-[inherit] h-[inherit] object-cover' src={img} alt={`An image of a ${manufacturer} ${model}`} />}
             
         </div>
@@ -66,7 +72,7 @@ const NewWhipForm = () => {
             {error[0] && <div className='w-full text-red-600'>{error[1]}</div>}
             <button type='submit' className='w-36 active:bg-white active:text-black h-12 transition-transform bg-black rounded-lg text-white font-semibold'
             >Submit</button>
-        </form>
+        </form></>: <Spinner error={false}/> }
         
     </div>
   )

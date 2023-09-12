@@ -26,7 +26,7 @@ func GetLastCarClickedId(c *fiber.Ctx) error {
 		fmt.Printf("ERROR HERE\n")
 		return c.Status(status).JSON(err.Error())
 	}
-	return c.Status(status).JSON(res)
+	return c.Status(status).JSON(res) 
 }
 
 func SetLastCarClickedId(c *fiber.Ctx) error {

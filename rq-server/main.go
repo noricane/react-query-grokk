@@ -56,7 +56,8 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/cars", routes.GetCars)
 	//User routes
 	app.Get("/user/get_last_clicked", routes.GetLastCarClickedId)
-	app.Post("/user/set_last_clicked", routes.SetLastCarClickedId)
+	app.Patch("/user/set_last_clicked", routes.SetLastCarClickedId)
+
 }
 
 func listen(port int, app *fiber.App) {
