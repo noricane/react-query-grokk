@@ -16,3 +16,6 @@ the synchronization of client-side state with server-side state.
 The idea of the repository was to grokk react query a little since it is a very widely used async client-side <-> server-side synchronization library that handles various scenarios (retries, automatic refetch, caching etc.) with it's implemented mechanisms.
 
 This will by no means be a large or even medium sized project. I will simply play around a bit here while learning react-query on a deeper level to be able to use it in enterprise scale codebases.
+
+Completed (TanStack):
+
