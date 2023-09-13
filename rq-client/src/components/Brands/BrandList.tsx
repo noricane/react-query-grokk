@@ -8,6 +8,7 @@ import React from 'react'
 import Spinner from '../Misc/Spinner';
 import { FaRegTimesCircle } from 'react-icons/fa';
 import { useGetPaginatedBrandsQuery } from '@/store/brandSlice';
+import { usePrefetchImmediately } from '../hooks/usePrefetchImmediately';
 
 const buttonStyle = " h-12 w-36 rounded-md "
 const buttonReactiveStyle = " bg-black text-white hover:scale-105 active:bg-white active:text-black transition-transform "
@@ -23,7 +24,7 @@ const BrandList = () => {
   const { data, isLoading, isFetching,isError,error } = useGetPaginatedBrandsQuery(page)
   const {brands, has_next:hasNext} = !isLoading && data != null ? data  : {brands:[],has_next:false}
 
-    
+
   /* const { 
     data:{ brands, has_next: hasNext } , 
     isError,

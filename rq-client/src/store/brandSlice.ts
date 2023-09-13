@@ -6,10 +6,13 @@ const brandAdapter = createEntityAdapter();
 const initialState = brandAdapter.getInitialState();
 
 const lim: number = 15;
-
+interface PaginatedBrandResponse {
+    brands:string[]
+    has_next:boolean
+}
 const extendedApiBrandSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getPaginatedBrands: builder.query<{brands:string[],has_next:boolean}, number| void>({
+    getPaginatedBrands: builder.query<PaginatedBrandResponse, number| void>({
       query: (page: number = 1) => ({
         url: `/brands_paginated?limit=${lim}&page=${page}`,  
         method: "GET",
