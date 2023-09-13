@@ -13,14 +13,14 @@ type PaginatedResponse struct {
 	HasNext bool      `json:"has_next"`
 }
 
-func GetBrandsPaginated(limit int, page int) (PaginatedResponse, error) {
+func GetBrandsPaginated(limit int, page int) (PaginatedResponse,int, error) {
 	fmt.Println("Get Paginatedbrands")
 	var hasNext bool
 	payload, err := getBrandsFromStore()
 
 	if err != nil {
 		log.Fatal("Error during Unmarshal(): ", err)
-		return PaginatedResponse{}, err
+		return PaginatedResponse{}, 500,err
 	}
 	var paginatedList *[]string
 	if len(*payload) > limit*(page-1) {
@@ -35,9 +35,11 @@ func GetBrandsPaginated(limit int, page int) (PaginatedResponse, error) {
 		}
 
 		if to < len(*payload) { hasNext = true }
-	}
 
-	return PaginatedResponse{Brands: paginatedList, HasNext: hasNext}, nil
+		return PaginatedResponse{Brands: paginatedList, HasNext: hasNext},0, nil
+	} else {
+		return PaginatedResponse{Brands: paginatedList, HasNext: false},404, fmt.Errorf("End reached. No more data to send.")
+	}
 }
 func GetBrands() (*[]string, error) {
 	fmt.Println("Get Brands")

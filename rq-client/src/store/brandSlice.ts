@@ -17,6 +17,7 @@ const extendedApiBrandSlice = apiSlice.injectEndpoints({
         url: `/brands_paginated?limit=${lim}&page=${page}`,  
         method: "GET",
       }),
+
     }),
   }),
 });

@@ -1,14 +1,12 @@
 "use client"
-import { getPaginatedBrands } from '@/utils/api';
-import { PaginatedBrands } from '@/utils/types';
-import { paginatedBrandsQuery } from '@/utils/userQuery_consts';
+
 import { useQuery,useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import React from 'react'
 import Spinner from '../Misc/Spinner';
 import { FaRegTimesCircle } from 'react-icons/fa';
-import { useGetPaginatedBrandsQuery } from '@/store/brandSlice';
-import { usePrefetchImmediately } from '../hooks/usePrefetchImmediately';
+import { useGetPaginatedBrandsQuery } from '../../store/brandSlice';
+
 
 const buttonStyle = " h-12 w-36 rounded-md "
 const buttonReactiveStyle = " bg-black text-white hover:scale-105 active:bg-white active:text-black transition-transform "
@@ -17,41 +15,20 @@ const buttonDisabledStyle = " bg-zinc-300 cursor-default "
 const notSuccessContainerStyle = " px-4 text-xl h-full w-96 py-6 px-4 text-3xl font-semibold bg-zinc-100 rounded-lg overflow-hidden flex flex-col justify-center items-center "
 const limit = 15;
 
+
+
+
 const BrandList = () => {
   const queryClient = useQueryClient()
-
   const [page,setPage] = React.useState<number>(1)
   const { data, isLoading, isFetching,isError,error } = useGetPaginatedBrandsQuery(page)
   const {brands, has_next:hasNext} = !isLoading && data != null ? data  : {brands:[],has_next:false}
 
+  // is this blasphemy?? 
+  //The redux cache will prevent refetches if we already have the data cached
+  const _ =  useGetPaginatedBrandsQuery(page +1) 
 
-  /* const { 
-    data:{ brands, has_next: hasNext } , 
-    isError,
-    isFetching, 
-    failureCount,
-    isPreviousData
-  } = 
-  useQuery<PaginatedBrands,AxiosError>(
-    { 
-      queryKey:  [...paginatedBrandsQuery, page],
-      queryFn:  () => getPaginatedBrands(limit,page),
-      keepPreviousData: true,
-      refetchOnWindowFocus:false,
-      initialData:{brands:[],has_next:false},
-    }
-  ); */
-/* 
-  React.useEffect(() => {
-    if (!isPreviousData && hasNext) {
-      queryClient.prefetchQuery({
-        queryKey:[...paginatedBrandsQuery, page+1],
-        queryFn: () => getPaginatedBrands(limit,page + 1),
-        staleTime:Infinity
-      })
-    }
-  }, [brands,hasNext, isPreviousData, page, queryClient])
-   */
+
   let content;
   
   if(isError) content = (
@@ -59,12 +36,7 @@ const BrandList = () => {
       <FaRegTimesCircle size={70}/>
       <span >Couldn&apos;t get brands, try again later</span>
     </div>);
-/* 
-  else if(failureCount > 0) content = (
-      <div className={`text-red-600 ${notSuccessContainerStyle}`}>
-        <Spinner error={true}/>
-        <span >Failed, trying again...</span>
-      </div>); */
+
   
   else if(isFetching) content = (
       <div className={`${notSuccessContainerStyle}`}>
@@ -87,7 +59,8 @@ const BrandList = () => {
             disabled={!hasNext || isFetching} 
             className={`${buttonStyle} ${hasNext ? buttonReactiveStyle : buttonDisabledStyle } `}
             onClick={()=>{
-               setPage(prev => prev+1)
+               setPage(prev =>{
+                return prev+1});     
               }}
             >Next</button>
         </div>
