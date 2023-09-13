@@ -1,11 +1,14 @@
 "use client"
 
-import { useQuery,useQueryClient } from '@tanstack/react-query';
+
 import { AxiosError } from 'axios';
-import React from 'react'
+import React, { useEffect } from 'react'
 import Spinner from '../Misc/Spinner';
 import { FaRegTimesCircle } from 'react-icons/fa';
 import { useGetPaginatedBrandsQuery } from '../../store/brandSlice';
+import { usePrefetch } from '../../store/apiSlice';
+
+import apiSlice from '@/store/apiSlice';
 
 
 const buttonStyle = " h-12 w-36 rounded-md "
@@ -19,14 +22,21 @@ const limit = 15;
 
 
 const BrandList = () => {
-  const queryClient = useQueryClient()
+
   const [page,setPage] = React.useState<number>(1)
+
+  /* @ts-ignore */
+  const prefetch = usePrefetch('getPaginatedBrands')
   const { data, isLoading, isFetching,isError,error } = useGetPaginatedBrandsQuery(page)
   const {brands, has_next:hasNext} = !isLoading && data != null ? data  : {brands:[],has_next:false}
 
+  useEffect(()=>{
+    prefetch(page+1,{})
+  },[page])
+  
   // is this blasphemy?? 
   //The redux cache will prevent refetches if we already have the data cached
-  const _ =  useGetPaginatedBrandsQuery(page +1) 
+  //const _ =  useGetPaginatedBrandsQuery(page +1) 
 
 
   let content;

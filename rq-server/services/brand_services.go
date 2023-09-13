@@ -38,7 +38,7 @@ func GetBrandsPaginated(limit int, page int) (PaginatedResponse,int, error) {
 
 		return PaginatedResponse{Brands: paginatedList, HasNext: hasNext},0, nil
 	} else {
-		return PaginatedResponse{Brands: paginatedList, HasNext: false},404, fmt.Errorf("End reached. No more data to send.")
+		return PaginatedResponse{Brands: paginatedList, HasNext: false},204, fmt.Errorf("End reached. No more data to send.")
 	}
 }
 func GetBrands() (*[]string, error) {

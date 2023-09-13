@@ -13,4 +13,7 @@ const apiSlice = createApi({
     })
 })
 
+
+/* @ts-ignore */
+export const {usePrefetch} = apiSlice
 export default apiSlice
