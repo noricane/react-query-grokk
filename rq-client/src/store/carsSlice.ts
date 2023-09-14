@@ -12,15 +12,15 @@ const extendedApiCarSlice = apiSlice.injectEndpoints({
         getAll: builder.query<Car[],void>({
             query:()=>`/cars`,
             providesTags:[{type: 'Cars',id:"LIST"}],
-    /*         transformResponse: (resp) => {
+    /*          transformResponse: (resp) => {
                 return  carAdapter.setAll(initialState,resp)
             } */
         }),
         addCar: builder.mutation<void,Car>({
             query:(c:Car)=>({
                 url:`/cars/new`,
-                method:"POST",
-                body:{car:c}
+                method:"POST", 
+                body:{car:c} 
             }),
             invalidatesTags: ['Cars']
         })
